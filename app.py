@@ -78,6 +78,14 @@ def load_custom_css():
             border-right: 1px solid #EFEFEF;
         }
         
+        /* Sidebar içindeki metinleri okunabilir yap (Device Dark Mode olsa bile) */
+        [data-testid="stSidebar"] .css-17lntkn, 
+        [data-testid="stSidebar"] p,
+        [data-testid="stSidebar"] span,
+        [data-testid="stSidebar"] div {
+            color: #2B2D42 !important;
+        }
+        
         [data-testid="stSidebar"] > div:first-child {
             padding-top: 1rem;
         }
