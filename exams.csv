@@ -1,0 +1,5 @@
+"exam_id","student_id","title","mode","created_at","status","score"
+"exam_20251205_184949","pilot_ogrenci_01","Matematik Mini Deneme","fixed","2025-12-05T18:49:49.481556","tamamlandi","20.0"
+"exam_20251206_070453","pilot_ogrenci_01","Matematik Mini Deneme","fixed","2025-12-06T07:04:53.692660","tamamlandi","40.0"
+"exam_20251208_181531","pilot_ogrenci_01","Matematik Mini Deneme","fixed","2025-12-08T18:15:31.217642","tamamlandi","0.0"
+"exam_20251208_181605","pilot_ogrenci_01","Matematik Mini Deneme","fixed","2025-12-08T18:16:05.030454","tamamlandi","0.0"

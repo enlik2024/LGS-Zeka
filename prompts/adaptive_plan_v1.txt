@@ -1,0 +1,21 @@
+Öğrenci Özeti:
+{summary_json}
+
+Görevin:
+Bu öğrenci için 5 soruluk bir "Mini Adaptif Deneme" planı oluştur.
+
+Kurallar:
+1. "weakest_topics" listesindeki konulara öncelik ver.
+2. Skor < 30 ise Zorluk 1-2 (Kolay).
+3. Skor 30-70 ise Zorluk 3 (Orta).
+4. Skor > 70 ise Zorluk 4-5 (Zor).
+5. Konu çeşitliliği sağla.
+6. Her soru için önerilen kaynak tipini (publisher/meb/ai_variant_of_pool/ai_original) belirt.
+
+Yanıt Formatı (Strict JSON):
+{{
+    "plan": [
+        {{"lesson": "Matematik", "topic": "...", "difficulty": 3, "origin_mix_hint": "publisher"}},
+        ...
+    ]
+}}

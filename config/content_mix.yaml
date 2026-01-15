@@ -1,0 +1,13 @@
+recommendation_priority:
+  - publisher
+  - ai_variant_of_publisher
+  - ai_generated
+
+default_packet:
+  micro_lesson_count: 1
+  worked_example_count: 1
+  
+mix_ratios:
+  publisher: 0.5
+  ai_variant_of_publisher: 0.3
+  ai_generated: 0.2

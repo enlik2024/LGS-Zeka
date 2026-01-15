@@ -1,0 +1,18 @@
+# Feature Flags Configuration
+# Deneysel özellikleri açıp kapatmak için kullanılır.
+
+features:
+  enable_adaptive_exam: true
+  enable_mini_exam: true
+  enable_learning_mode: true
+  enable_ai_coach: true
+  enable_dashboard: true
+  enable_question_analysis: true
+  enable_moral_booster: true
+  enable_admin_panel: true
+  beta_mode_enabled: true  # Perplexity Critic desteği
+
+# Sistem Ayarları
+system:
+  log_level: INFO
+  maintenance_mode: false

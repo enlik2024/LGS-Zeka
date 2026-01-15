@@ -1,0 +1,310 @@
+event_id,timestamp,event_type,user_id,details,session_id
+evt_20251205155648339665,2025-12-05T15:56:48.339713,app_start,current_user,{},current_session
+evt_20251205160005752693,2025-12-05T16:00:05.752741,app_start,current_user,{},current_session
+evt_20251205160024968542,2025-12-05T16:00:24.968560,app_start,current_user,{},current_session
+evt_20251205160302673754,2025-12-05T16:03:02.673786,app_start,current_user,{},current_session
+evt_20251205160325532001,2025-12-05T16:03:25.532028,app_start,current_user,{},current_session
+evt_20251205160832402112,2025-12-05T16:08:32.402135,app_start,current_user,{},current_session
+evt_20251205161201522537,2025-12-05T16:12:01.522639,app_start,current_user,{},current_session
+evt_20251205161255150429,2025-12-05T16:12:55.150446,app_start,current_user,{},current_session
+evt_20251205161635416875,2025-12-05T16:16:35.416896,app_start,current_user,{},current_session
+evt_20251205161711518568,2025-12-05T16:17:11.518585,app_start,current_user,{},current_session
+evt_20251205162134607178,2025-12-05T16:21:34.607200,app_start,current_user,{},current_session
+evt_20251205162644216797,2025-12-05T16:26:44.217842,app_start,current_user,{},current_session
+evt_20251205162701478288,2025-12-05T16:27:01.478330,app_start,current_user,{},current_session
+evt_20251205162940140890,2025-12-05T16:29:40.140948,app_start,current_user,{},current_session
+evt_20251205163611341420,2025-12-05T16:36:11.341438,app_start,current_user,{},current_session
+evt_20251205172254071217,2025-12-05T17:22:54.071565,app_start,current_user,{},current_session
+evt_20251205172623436255,2025-12-05T17:26:23.436292,app_start,current_user,{},current_session
+evt_20251205174623750736,2025-12-05T17:46:23.750855,app_start,current_user,{},current_session
+evt_20251205181742301484,2025-12-05T18:17:42.301503,app_start,current_user,{},current_session
+evt_20251205182150707137,2025-12-05T18:21:50.707154,app_start,current_user,{},current_session
+evt_20251205182529352407,2025-12-05T18:25:29.352444,app_start,current_user,{},current_session
+evt_20251205182549059885,2025-12-05T18:25:49.059907,app_start,current_user,{},current_session
+evt_20251205183113027962,2025-12-05T18:31:13.027987,app_start,current_user,{},current_session
+evt_20251205183341315080,2025-12-05T18:33:41.315106,app_start,current_user,{},current_session
+evt_20251205183411525504,2025-12-05T18:34:11.525539,app_start,current_user,{},current_session
+evt_20251205184206484312,2025-12-05T18:42:06.484347,app_start,current_user,{},current_session
+evt_20251205184607118782,2025-12-05T18:46:07.118812,app_start,current_user,{},current_session
+evt_20251205184622514151,2025-12-05T18:46:22.514171,app_start,current_user,{},current_session
+evt_20251205184920576174,2025-12-05T18:49:20.576195,app_start,current_user,{},current_session
+evt_20251205190235698946,2025-12-05T19:02:35.698969,app_start,current_user,{},current_session
+evt_20251205213657541967,2025-12-05T21:36:57.541986,app_start,current_user,{},current_session
+evt_20251205214523264462,2025-12-05T21:45:23.264481,app_start,current_user,{},current_session
+evt_20251205214656994161,2025-12-05T21:46:56.994190,app_start,current_user,{},current_session
+evt_20251205215106620177,2025-12-05T21:51:06.620222,app_start,current_user,{},current_session
+evt_20251205220436074800,2025-12-05T22:04:36.074822,app_start,current_user,{},current_session
+evt_20251205221938679841,2025-12-05T22:19:38.679862,app_start,current_user,{},current_session
+evt_20251205222023943785,2025-12-05T22:20:23.943815,app_start,current_user,{},current_session
+evt_20251205230450419684,2025-12-05T23:04:50.419702,app_start,current_user,{},current_session
+evt_20251205233539486266,2025-12-05T23:35:39.486287,app_start,current_user,{},current_session
+evt_20251205234622726653,2025-12-05T23:46:22.726673,app_start,current_user,{},current_session
+evt_20251205235631751227,2025-12-05T23:56:31.751284,app_start,current_user,{},current_session
+evt_20251206001029310843,2025-12-06T00:10:29.310865,app_start,current_user,{},current_session
+evt_20251206001657280136,2025-12-06T00:16:57.280155,app_start,current_user,{},current_session
+evt_20251206003934299025,2025-12-06T00:39:34.299084,app_start,current_user,{},current_session
+evt_20251206070207675705,2025-12-06T07:02:07.675723,app_start,current_user,{},current_session
+evt_20251206070820737959,2025-12-06T07:08:20.737982,app_start,current_user,{},current_session
+evt_20251206094731416290,2025-12-06T09:47:31.416362,app_start,current_user,{},current_session
+evt_20251206100007024589,2025-12-06T10:00:07.024627,app_start,current_user,{},current_session
+evt_20251206100007046239,2025-12-06T10:00:07.046260,app_start,current_user,{},current_session
+evt_20251206101335651499,2025-12-06T10:13:35.651534,app_start,current_user,{},current_session
+evt_20251206101335666917,2025-12-06T10:13:35.666944,app_start,current_user,{},current_session
+evt_20251206101543854049,2025-12-06T10:15:43.858785,app_start,current_user,{},current_session
+evt_20251206101957460507,2025-12-06T10:19:57.460532,app_start,current_user,{},current_session
+evt_20251206102552609020,2025-12-06T10:25:52.609037,app_start,current_user,{},current_session
+evt_20251206180059829719,2025-12-06T18:00:59.830122,app_start,current_user,{},current_session
+evt_20251208180001505447,2025-12-08T18:00:01.505482,app_start,current_user,{},current_session
+evt_20251208180939481269,2025-12-08T18:09:39.481301,app_start,current_user,{},current_session
+evt_20251208181018425379,2025-12-08T18:10:18.425415,app_start,current_user,{},current_session
+evt_20251208182559414236,2025-12-08T18:25:59.414269,app_start,current_user,{},current_session
+evt_20251208183930311835,2025-12-08T18:39:30.311866,app_start,current_user,{},current_session
+evt_20251208184848427781,2025-12-08T18:48:48.427832,app_start,current_user,{},current_session
+evt_20251208190906348347,2025-12-08T19:09:06.348378,app_start,current_user,{},current_session
+evt_20251208191143301904,2025-12-08T19:11:43.301937,app_start,current_user,{},current_session
+evt_20251208192050666047,2025-12-08T19:20:50.666082,app_start,current_user,{},current_session
+evt_20251208194630135913,2025-12-08T19:46:30.135944,app_start,current_user,{},current_session
+evt_20251208194927815963,2025-12-08T19:49:27.815998,app_start,current_user,{},current_session
+evt_20251208195034588518,2025-12-08T19:50:34.588549,app_start,current_user,{},current_session
+evt_20251208195240852390,2025-12-08T19:52:40.852419,app_start,current_user,{},current_session
+evt_20251208195512208038,2025-12-08T19:55:12.208068,app_start,current_user,{},current_session
+evt_20251210192848908038,2025-12-10T19:28:48.908068,app_start,current_user,{},current_session
+evt_20251210194138845334,2025-12-10T19:41:38.845354,app_start,current_user,{},current_session
+evt_20251210194846718333,2025-12-10T19:48:46.718359,app_start,current_user,{},current_session
+evt_20251210201136320176,2025-12-10T20:11:36.320211,app_start,current_user,{},current_session
+evt_20251210201136334035,2025-12-10T20:11:36.334071,app_start,current_user,{},current_session
+evt_20251210201521247893,2025-12-10T20:15:21.247910,app_start,current_user,{},current_session
+evt_20251210201951801405,2025-12-10T20:19:51.801425,app_start,current_user,{},current_session
+evt_20251210202325811237,2025-12-10T20:23:25.811265,app_start,current_user,{},current_session
+evt_20251210203235247702,2025-12-10T20:32:35.247721,app_start,current_user,{},current_session
+evt_20251210203339877777,2025-12-10T20:33:39.877829,app_start,current_user,{},current_session
+evt_20251210204029673776,2025-12-10T20:40:29.673797,app_start,current_user,{},current_session
+evt_20251210204802478172,2025-12-10T20:48:02.478207,app_start,current_user,{},current_session
+evt_20251210205409938775,2025-12-10T20:54:09.938795,app_start,current_user,{},current_session
+evt_20251210210109952959,2025-12-10T21:01:09.952993,app_start,current_user,{},current_session
+evt_20251210210109960265,2025-12-10T21:01:09.960288,app_start,current_user,{},current_session
+evt_20251210210636875608,2025-12-10T21:06:36.875647,app_start,current_user,{},current_session
+evt_20251210211225763946,2025-12-10T21:12:25.763967,app_start,current_user,{},current_session
+evt_20251210212113051593,2025-12-10T21:21:13.051615,app_start,current_user,{},current_session
+evt_20251210212646555628,2025-12-10T21:26:46.555654,app_start,current_user,{},current_session
+evt_20251210214456101516,2025-12-10T21:44:56.101550,app_start,current_user,{},current_session
+evt_20251210220201797473,2025-12-10T22:02:01.797516,app_start,current_user,{},current_session
+evt_20251210220800327457,2025-12-10T22:08:00.327476,app_start,current_user,{},current_session
+evt_20251211235315572415,2025-12-11T23:53:15.572465,app_start,current_user,{},current_session
+evt_20251212002107214635,2025-12-12T00:21:07.214667,app_start,current_user,{},current_session
+evt_20251223123826360639,2025-12-23T12:38:26.360656,app_start,current_user,{},current_session
+evt_20251223133412146057,2025-12-23T13:34:12.146079,app_start,current_user,{},current_session
+evt_20251223133535703399,2025-12-23T13:35:35.703419,app_start,current_user,{},current_session
+evt_20251223133551442206,2025-12-23T13:35:51.442223,app_start,current_user,{},current_session
+evt_20251223134506797011,2025-12-23T13:45:06.797037,app_start,current_user,{},current_session
+evt_20251223134832919533,2025-12-23T13:48:32.919550,app_start,current_user,{},current_session
+evt_20251223135553204321,2025-12-23T13:55:53.204337,app_start,current_user,{},current_session
+evt_20251223140109633971,2025-12-23T14:01:09.633993,app_start,current_user,{},current_session
+evt_20251223140354378185,2025-12-23T14:03:54.378203,app_start,current_user,{},current_session
+evt_20251223141330459184,2025-12-23T14:13:30.459206,app_start,current_user,{},current_session
+evt_20251223141844437656,2025-12-23T14:18:44.437673,app_start,current_user,{},current_session
+evt_20251223142255290502,2025-12-23T14:22:55.290525,app_start,current_user,{},current_session
+evt_20251223143002926519,2025-12-23T14:30:02.926538,app_start,current_user,{},current_session
+evt_20251223145307250157,2025-12-23T14:53:07.250174,app_start,current_user,{},current_session
+evt_20251223150435023623,2025-12-23T15:04:35.023640,app_start,current_user,{},current_session
+evt_20251223151328390992,2025-12-23T15:13:28.391015,app_start,current_user,{},current_session
+evt_20251223151743814842,2025-12-23T15:17:43.814864,app_start,current_user,{},current_session
+evt_20251223152843971817,2025-12-23T15:28:43.971835,app_start,current_user,{},current_session
+evt_20251223153352021805,2025-12-23T15:33:52.021823,app_start,current_user,{},current_session
+evt_20251223153811940642,2025-12-23T15:38:11.940661,app_start,current_user,{},current_session
+evt_20251223154705912240,2025-12-23T15:47:05.912259,app_start,current_user,{},current_session
+evt_20251223155110569423,2025-12-23T15:51:10.569441,app_start,current_user,{},current_session
+evt_20251223160021496940,2025-12-23T16:00:21.496965,app_start,current_user,{},current_session
+evt_20251223161038957487,2025-12-23T16:10:38.957507,app_start,current_user,{},current_session
+evt_20251223164638678821,2025-12-23T16:46:38.678842,app_start,current_user,{},current_session
+evt_20251223165422560796,2025-12-23T16:54:22.560813,app_start,current_user,{},current_session
+evt_20251223165831468527,2025-12-23T16:58:31.468545,app_start,current_user,{},current_session
+evt_20251223180147434895,2025-12-23T18:01:47.434915,app_start,current_user,{},current_session
+evt_20251223181848128540,2025-12-23T18:18:48.128559,app_start,current_user,{},current_session
+evt_20251223181921687095,2025-12-23T18:19:21.687116,app_start,current_user,{},current_session
+evt_20251223185449331180,2025-12-23T18:54:49.331205,app_start,current_user,{},current_session
+evt_20251223205537989860,2025-12-23T20:55:37.989885,app_start,current_user,{},current_session
+evt_20251223205633635900,2025-12-23T20:56:33.635920,app_start,current_user,{},current_session
+evt_20251223205702957661,2025-12-23T20:57:02.957710,app_start,current_user,{},current_session
+evt_20251223205840880381,2025-12-23T20:58:40.880402,app_start,current_user,{},current_session
+evt_20251223211825392401,2025-12-23T21:18:25.392429,app_start,current_user,{},current_session
+evt_20251224001840816295,2025-12-24T00:18:40.816316,app_start,current_user,{},current_session
+evt_20251224002132144999,2025-12-24T00:21:32.145018,app_start,current_user,{},current_session
+evt_20251224002146862537,2025-12-24T00:21:46.862556,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20251224002820974287,2025-12-24T00:28:20.974309,app_start,current_user,{},current_session
+evt_20251224002834660206,2025-12-24T00:28:34.660226,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20251224004128198769,2025-12-24T00:41:28.198790,app_start,current_user,{},current_session
+evt_20251224004144256397,2025-12-24T00:41:44.256417,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20251224004327314194,2025-12-24T00:43:27.314216,chat_session_start,current_user,"{'topic': 'Veri Analizi', 'question_id': 'q_20251224_004206'}",current_session
+evt_20251224005057759958,2025-12-24T00:50:57.760009,app_start,current_user,{},current_session
+evt_20251224204435199839,2025-12-24T20:44:35.199868,app_start,current_user,{},current_session
+evt_20251224204528425641,2025-12-24T20:45:28.425663,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20251224210635476937,2025-12-24T21:06:35.476962,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20251224235829193122,2025-12-24T23:58:29.193325,app_start,current_user,{},current_session
+evt_20260102143122456096,2026-01-02T14:31:22.456120,app_start,current_user,{},current_session
+evt_20260102143147148592,2026-01-02T14:31:47.148616,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105191505648395,2026-01-05T19:15:05.648433,app_start,current_user,{},current_session
+evt_20260105191621584511,2026-01-05T19:16:21.584538,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105191737639515,2026-01-05T19:17:37.639542,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105192727576784,2026-01-05T19:27:27.576802,app_start,current_user,{},current_session
+evt_20260105192741221541,2026-01-05T19:27:41.221566,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105194258634038,2026-01-05T19:42:58.634060,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105194710425273,2026-01-05T19:47:10.425299,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105195006501901,2026-01-05T19:50:06.501943,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105200214795121,2026-01-05T20:02:14.795145,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105200935305973,2026-01-05T20:09:35.305995,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105201322759200,2026-01-05T20:13:22.759226,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105201749967422,2026-01-05T20:17:49.967448,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105202011040753,2026-01-05T20:20:11.040776,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105202404429207,2026-01-05T20:24:04.429229,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105203555278518,2026-01-05T20:35:55.278539,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260105204437100895,2026-01-05T20:44:37.100919,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1}",current_session
+evt_20260106160154978190,2026-01-06T16:01:54.978216,app_start,current_user,{},current_session
+evt_20260106160224221775,2026-01-06T16:02:24.221799,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260106160357786897,2026-01-06T16:03:57.786923,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106161149587578,2026-01-06T16:11:49.587598,app_start,current_user,{},current_session
+evt_20260106161205887123,2026-01-06T16:12:05.887160,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106162600641116,2026-01-06T16:26:00.641141,app_start,current_user,{},current_session
+evt_20260106162612020213,2026-01-06T16:26:12.020238,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106163305594146,2026-01-06T16:33:05.594169,app_start,current_user,{},current_session
+evt_20260106163318218808,2026-01-06T16:33:18.218831,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106163830124466,2026-01-06T16:38:30.124483,app_start,current_user,{},current_session
+evt_20260106164011053973,2026-01-06T16:40:11.053991,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260106165244759570,2026-01-06T16:52:44.759599,app_start,current_user,{},current_session
+evt_20260106165256746359,2026-01-06T16:52:56.746379,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106171642974377,2026-01-06T17:16:42.974402,app_start,current_user,{},current_session
+evt_20260106171655753510,2026-01-06T17:16:55.753530,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106175358772895,2026-01-06T17:53:58.772922,app_start,current_user,{},current_session
+evt_20260106175407135724,2026-01-06T17:54:07.135745,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260106175611992277,2026-01-06T17:56:11.992301,app_start,current_user,{},current_session
+evt_20260106175624264305,2026-01-06T17:56:24.264335,app_start,current_user,{},current_session
+evt_20260106175636150645,2026-01-06T17:56:36.150665,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106190222738036,2026-01-06T19:02:22.738079,app_start,current_user,{},current_session
+evt_20260106190233439436,2026-01-06T19:02:33.439460,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106190907712627,2026-01-06T19:09:07.712650,app_start,current_user,{},current_session
+evt_20260106190917426782,2026-01-06T19:09:17.426802,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106192454484678,2026-01-06T19:24:54.484696,app_start,current_user,{},current_session
+evt_20260106192507452460,2026-01-06T19:25:07.452481,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106194116964271,2026-01-06T19:41:16.964291,app_start,current_user,{},current_session
+evt_20260106194135103955,2026-01-06T19:41:35.103973,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106201058872866,2026-01-06T20:10:58.872898,app_start,current_user,{},current_session
+evt_20260106201110553100,2026-01-06T20:11:10.553120,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106203157029949,2026-01-06T20:31:57.029969,app_start,current_user,{},current_session
+evt_20260106203212170325,2026-01-06T20:32:12.170350,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106204402098246,2026-01-06T20:44:02.098270,app_start,current_user,{},current_session
+evt_20260106204410875913,2026-01-06T20:44:10.875937,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106210002685296,2026-01-06T21:00:02.685315,app_start,current_user,{},current_session
+evt_20260106210014019549,2026-01-06T21:00:14.019588,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106211244842595,2026-01-06T21:12:44.842612,app_start,current_user,{},current_session
+evt_20260106211254500960,2026-01-06T21:12:54.500979,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260106221922199699,2026-01-06T22:19:22.199913,app_start,current_user,{},current_session
+evt_20260106231903879746,2026-01-06T23:19:03.879763,app_start,current_user,{},current_session
+evt_20260106232850075016,2026-01-06T23:28:50.075038,app_start,current_user,{},current_session
+evt_20260106233522434359,2026-01-06T23:35:22.434377,app_start,current_user,{},current_session
+evt_20260106234116491327,2026-01-06T23:41:16.491370,app_start,current_user,{},current_session
+evt_20260106234421815422,2026-01-06T23:44:21.815441,app_start,current_user,{},current_session
+evt_20260107124025823782,2026-01-07T12:40:25.823821,app_start,current_user,{},current_session
+evt_20260107124044417434,2026-01-07T12:40:44.417478,app_start,current_user,{},current_session
+evt_20260107132515240002,2026-01-07T13:25:15.240018,app_start,current_user,{},current_session
+evt_20260107132716348976,2026-01-07T13:27:16.348998,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107160131771422,2026-01-07T16:01:31.771446,app_start,current_user,{},current_session
+evt_20260107161411693052,2026-01-07T16:14:11.693078,app_start,current_user,{},current_session
+evt_20260107183812704092,2026-01-07T18:38:12.704118,app_start,current_user,{},current_session
+evt_20260107184327657260,2026-01-07T18:43:27.657280,app_start,current_user,{},current_session
+evt_20260107184346250010,2026-01-07T18:43:46.250031,app_start,current_user,{},current_session
+evt_20260107184403661742,2026-01-07T18:44:03.661764,app_start,current_user,{},current_session
+evt_20260107195616745295,2026-01-07T19:56:16.745317,app_start,current_user,{},current_session
+evt_20260107205334482084,2026-01-07T20:53:34.482107,app_start,current_user,{},current_session
+evt_20260107210325839617,2026-01-07T21:03:25.839636,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107211245346591,2026-01-07T21:12:45.346617,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107212909844474,2026-01-07T21:29:09.844499,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107214207560421,2026-01-07T21:42:07.560447,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107215243784952,2026-01-07T21:52:43.784978,app_start,current_user,{},current_session
+evt_20260107215257659406,2026-01-07T21:52:57.659434,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107220131831995,2026-01-07T22:01:31.832016,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107220416829705,2026-01-07T22:04:16.829728,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107220713312982,2026-01-07T22:07:13.313006,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260107223502153649,2026-01-07T22:35:02.153670,app_start,current_user,{},current_session
+evt_20260107225008601425,2026-01-07T22:50:08.601474,app_start,current_user,{},current_session
+evt_20260107225541658566,2026-01-07T22:55:41.658612,app_start,current_user,{},current_session
+evt_20260107230530682823,2026-01-07T23:05:30.682874,app_start,current_user,{},current_session
+evt_20260107230913929206,2026-01-07T23:09:13.929225,app_start,current_user,{},current_session
+evt_20260107231652879501,2026-01-07T23:16:52.879557,app_start,current_user,{},current_session
+evt_20260107231722700649,2026-01-07T23:17:22.700696,app_start,current_user,{},current_session
+evt_20260113185906673874,2026-01-13T18:59:06.673908,app_start,current_user,{},current_session
+evt_20260113193533399828,2026-01-13T19:35:33.399872,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113194518490857,2026-01-13T19:45:18.490894,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113194650332718,2026-01-13T19:46:50.332763,app_start,current_user,{},current_session
+evt_20260113194704196768,2026-01-13T19:47:04.196798,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260113194908329188,2026-01-13T19:49:08.329227,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113195029968363,2026-01-13T19:50:29.968408,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113195039162407,2026-01-13T19:50:39.162442,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260113200423804828,2026-01-13T20:04:23.804885,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113201047737871,2026-01-13T20:10:47.737904,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113201307219533,2026-01-13T20:13:07.219567,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113202614494312,2026-01-13T20:26:14.494348,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113203348237567,2026-01-13T20:33:48.237597,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113203702209006,2026-01-13T20:37:02.209037,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113204158496187,2026-01-13T20:41:58.496219,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113205250410505,2026-01-13T20:52:50.410543,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113210141854349,2026-01-13T21:01:41.854386,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113210608279502,2026-01-13T21:06:08.279534,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113211449701725,2026-01-13T21:14:49.701757,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113211955696657,2026-01-13T21:19:55.696687,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113212307752342,2026-01-13T21:23:07.752373,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113212522176714,2026-01-13T21:25:22.176743,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113212645473143,2026-01-13T21:26:45.473173,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113212948581701,2026-01-13T21:29:48.581750,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113213107487078,2026-01-13T21:31:07.487148,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260113213138139623,2026-01-13T21:31:38.139654,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260113213302692071,2026-01-13T21:33:02.692100,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260114211217253242,2026-01-14T21:12:17.253269,app_start,current_user,{},current_session
+evt_20260114211559809219,2026-01-14T21:15:59.809237,app_start,current_user,{},current_session
+evt_20260114211859375817,2026-01-14T21:18:59.375849,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260114212150416128,2026-01-14T21:21:50.416152,app_start,current_user,{},current_session
+evt_20260114212559528185,2026-01-14T21:25:59.528212,app_start,current_user,{},current_session
+evt_20260114212631152514,2026-01-14T21:26:31.152536,app_start,current_user,{},current_session
+evt_20260114213755195962,2026-01-14T21:37:55.195985,app_start,current_user,{},current_session
+evt_20260114213822511342,2026-01-14T21:38:22.511367,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260114213931164139,2026-01-14T21:39:31.164170,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260114214244828531,2026-01-14T21:42:44.828554,app_start,current_user,{},current_session
+evt_20260114214301233718,2026-01-14T21:43:01.233746,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260114215115231441,2026-01-14T21:51:15.231473,app_start,current_user,{},current_session
+evt_20260114215130415380,2026-01-14T21:51:30.415407,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260114215152255417,2026-01-14T21:51:52.255440,chat_session_start,current_user,"{'topic': 'Kareköklü Sayılar ve Alan Hesaplama', 'question_id': None}",current_session
+evt_20260114220121370803,2026-01-14T22:01:21.370824,app_start,current_user,{},current_session
+evt_20260114220149927503,2026-01-14T22:01:49.927530,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': False}",current_session
+evt_20260114220232036256,2026-01-14T22:02:32.036282,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260114220903467217,2026-01-14T22:09:03.467236,app_start,current_user,{},current_session
+evt_20260114221830094308,2026-01-14T22:18:30.094335,app_start,current_user,{},current_session
+evt_20260114221905956685,2026-01-14T22:19:05.956703,app_start,current_user,{},current_session
+evt_20260114222719079554,2026-01-14T22:27:19.079573,app_start,current_user,{},current_session
+evt_20260114223204086681,2026-01-14T22:32:04.086707,app_start,current_user,{},current_session
+evt_20260114223907643777,2026-01-14T22:39:07.643796,app_start,current_user,{},current_session
+evt_20260114223955561540,2026-01-14T22:39:55.561566,app_start,current_user,{},current_session
+evt_20260114224209479888,2026-01-14T22:42:09.479914,app_start,current_user,{},current_session
+evt_20260114224438149341,2026-01-14T22:44:38.149366,app_start,current_user,{},current_session
+evt_20260114224800757143,2026-01-14T22:48:00.757167,app_start,current_user,{},current_session
+evt_20260114235812376563,2026-01-14T23:58:12.376607,app_start,current_user,{},current_session
+evt_20260115001606819323,2026-01-15T00:16:06.819356,app_start,current_user,{},current_session
+evt_20260115001705648949,2026-01-15T00:17:05.649102,app_start,current_user,{},current_session
+evt_20260115001758153761,2026-01-15T00:17:58.153925,app_start,current_user,{},current_session
+evt_20260115001904173421,2026-01-15T00:19:04.173490,app_start,current_user,{},current_session
+evt_20260115002013526505,2026-01-15T00:20:13.526814,app_start,current_user,{},current_session
+evt_20260115002527042923,2026-01-15T00:25:27.043010,app_start,current_user,{},current_session
+evt_20260115002829355528,2026-01-15T00:28:29.355678,app_start,current_user,{},current_session
+evt_20260115002913373038,2026-01-15T00:29:13.373104,app_start,current_user,{},current_session
+evt_20260115003037413358,2026-01-15T00:30:37.413510,app_start,current_user,{},current_session
+evt_20260115003139601338,2026-01-15T00:31:39.601485,app_start,current_user,{},current_session
+evt_20260115003500563964,2026-01-15T00:35:00.564145,app_start,current_user,{},current_session
+evt_20260115003737212069,2026-01-15T00:37:37.212422,app_start,current_user,{},current_session
+evt_20260115003839781303,2026-01-15T00:38:39.781451,app_start,current_user,{},current_session
+evt_20260115004349499486,2026-01-15T00:43:49.499509,app_start,current_user,{},current_session
+evt_20260115125956397238,2026-01-15T12:59:56.397255,app_start,current_user,{},current_session
+evt_20260115130433207263,2026-01-15T13:04:33.207281,app_start,current_user,{},current_session
+evt_20260115131828928558,2026-01-15T13:18:28.928575,app_start,current_user,{},current_session
+evt_20260115132942772203,2026-01-15T13:29:42.772222,app_start,current_user,{},current_session
+evt_20260115133512163336,2026-01-15T13:35:12.163352,app_start,current_user,{},current_session
+evt_20260115134413869676,2026-01-15T13:44:13.869698,app_start,current_user,{},current_session
+evt_20260115134433108963,2026-01-15T13:44:33.108982,app_start,current_user,{},current_session
+evt_20260115142355584667,2026-01-15T14:23:55.584758,app_start,current_user,{},current_session

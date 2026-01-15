@@ -1,0 +1,10 @@
+lesson,topic,subtopic,importance_weight,active
+Matematik,Üslü İfadeler,Üslü Sayıların Özellikleri,5,True
+Matematik,Üslü İfadeler,Çözümleme,4,True
+Matematik,Kareköklü İfadeler,Tam Kare Sayılar,5,True
+Fen Bilimleri,Mevsimler ve İklim,Mevsimlerin Oluşumu,5,True
+Fen Bilimleri,DNA ve Genetik Kod,DNA Yapısı,5,True
+Türkçe,Sözcükte Anlam,Gerçek Anlam,3,True
+Türkçe,Paragrafta Anlam,Ana Düşünce,5,True
+Matematik,"Çarpanlar ve Katlar, Üslü İfadeler","Çarpanlar ve Katlar, Üslü İfadeler",3,True
+"Matematik","Genel","Genel","3","True"

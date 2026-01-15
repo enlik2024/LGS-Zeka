@@ -1,0 +1,137 @@
+# LGS-Zeka Unified Configuration
+# Tüm uygulama ayarlarının tek merkezi dosyası
+# Tarih: 23 Aralık 2025
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# UYGULAMA GENEL AYARLARI
+# ═══════════════════════════════════════════════════════════════════════════════
+app:
+  name: "LGS-Zeka"
+  version: "2.0.0"
+  debug_mode: false
+  
+# ═══════════════════════════════════════════════════════════════════════════════
+# VERİTABANI AYARLARI
+# ═══════════════════════════════════════════════════════════════════════════════
+database:
+  # Aktif backend: "google_sheets" veya "supabase"
+  backend: "google_sheets"
+  
+  # Supabase (FAZ 2 için hazırlık)
+  supabase:
+    enabled: false
+    
+  # Sheets modu (FAZ 2'de "read_only" olacak)
+  sheets:
+    mode: "read_write"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# AI MODEL AYARLARI
+# ═══════════════════════════════════════════════════════════════════════════════
+ai:
+  # ═══════════════════════════════════════════════════════════════════════════
+  # KESİN MODEL LİSTESİ (Google AI Studio Ekran Görüntüsünden - 23 Aralık 2025)
+  # ═══════════════════════════════════════════════════════════════════════════
+  # Text-out models:
+  #   gemini-2.5-flash      : 5 RPM, 250K TPM, 20 RPD
+  #   gemini-2.5-flash-lite : 10 RPM, 250K TPM, 20 RPD  
+  #   gemini-3-flash        : 5 RPM, 250K TPM, 20 RPD
+  # Multi-modal:
+  #   gemini-2.5-flash-tts  : 3 RPM, 10K TPM, 10 RPD
+  # Live API:
+  #   gemini-2.5-flash-native-audio-dialog : Unlimited
+  # ═══════════════════════════════════════════════════════════════════════════
+  models:
+    text:
+      primary: "gemini-3-flash-preview"
+      fallback_1: "gemini-2.5-flash"
+      fallback_2: "gemini-2.5-flash-lite"
+    
+    tts: "gemini-2.5-flash-tts"
+    audio_dialog: "gemini-2.5-flash-native-audio-dialog"
+  
+  # Generation parametreleri
+  # KRITIK: response_mime_type JSON mode'u aktif eder - geçerli JSON çıktısı garanti
+  generation:
+    temperature: 0.4
+    top_p: 0.95
+    top_k: 40
+    max_output_tokens: 8192
+    response_mime_type: "application/json"
+  
+  # API Key Fallback Sistemi
+  # Birincil key kota limitine ulaşırsa ikincile geç
+  api_keys:
+    use_fallback: true
+    # Keyler secrets.toml'dan okunur:
+    # - gemini.api_key (primary)
+    # - gemini.api_key_secondary (fallback)
+  
+  # Semantic Cache (FAZ 3 için hazırlık)
+  cache:
+    enabled: false
+    backend: "pgvector"
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# LGS HESAPLAMA SABİTLERİ
+# ═══════════════════════════════════════════════════════════════════════════════
+lgs:
+  katsayilar:
+    turkce: 4
+    matematik: 4
+    fen: 4
+    inkilap: 1
+    din: 1
+    dil: 1
+  
+  soru_sayilari:
+    turkce: 20
+    matematik: 20
+    fen: 20
+    inkilap: 10
+    din: 10
+    dil: 10
+  
+  # Varsayılan ortalama ve standart sapma değerleri
+  # Gerçek MEB verilerine göre güncellenebilir
+  defaults:
+    ortalama: 50.0
+    std: 15.0
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# PEDAGOJİK AYARLAR (FAZ 4 için hazırlık)
+# ═══════════════════════════════════════════════════════════════════════════════
+pedagogy:
+  # Sınav Simülasyonu
+  exam_simulation:
+    ambient_noise: false
+    timer_enabled: true
+    timer_warning_minutes: 5
+  
+  # Gamification 2.0
+  gamification:
+    xp_per_correct: 10
+    xp_per_hint_used: -2
+    streak_multiplier: 1.5
+    boss_fight_enabled: false
+    zeigarnik_panel: false
+  
+  # Audio Learning
+  audio:
+    tts_enabled: false
+    native_audio_enabled: false
+    podcast_style_summaries: false
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# UI AYARLARI
+# ═══════════════════════════════════════════════════════════════════════════════
+ui:
+  theme:
+    primary_color: "#FF6B6B"
+    secondary_color: "#4ECDC4"
+  
+  # 3 Kart Kuralı - Aynı anda max 3 ana odak gösterilir
+  max_focus_cards: 3
+  
+  # Emoji kullanımı
+  use_emojis: true

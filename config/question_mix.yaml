@@ -1,0 +1,22 @@
+default_mix:
+  publisher: 0.60
+  meb: 0.20
+  ai_variant_of_pool: 0.15
+  ai_original: 0.05
+
+by_mode:
+  adaptive:
+    publisher: 0.55
+    meb: 0.25
+    ai_variant_of_pool: 0.15
+    ai_original: 0.05
+  revision:
+    publisher: 0.40
+    meb: 0.20
+    ai_variant_of_pool: 0.35
+    ai_original: 0.05
+  moral:
+    publisher: 0.70
+    meb: 0.20
+    ai_variant_of_pool: 0.10
+    ai_original: 0.00
