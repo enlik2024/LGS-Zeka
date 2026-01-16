@@ -308,3 +308,22 @@ evt_20260115133512163336,2026-01-15T13:35:12.163352,app_start,current_user,{},cu
 evt_20260115134413869676,2026-01-15T13:44:13.869698,app_start,current_user,{},current_session
 evt_20260115134433108963,2026-01-15T13:44:33.108982,app_start,current_user,{},current_session
 evt_20260115142355584667,2026-01-15T14:23:55.584758,app_start,current_user,{},current_session
+evt_20260115232849934877,2026-01-15T23:28:49.934937,app_start,current_user,{},current_session
+evt_20260115234715348631,2026-01-15T23:47:15.348659,app_start,current_user,{},current_session
+evt_20260115234958033527,2026-01-15T23:49:58.033575,app_start,current_user,{},current_session
+evt_20260115235716085497,2026-01-15T23:57:16.085519,app_start,current_user,{},current_session
+evt_20260116000103040910,2026-01-16T00:01:03.040932,app_start,current_user,{},current_session
+evt_20260116000900582962,2026-01-16T00:09:00.582989,app_start,current_user,{},current_session
+evt_20260116001344750967,2026-01-16T00:13:44.750995,app_start,current_user,{},current_session
+evt_20260116002051056834,2026-01-16T00:20:51.056854,app_start,current_user,{},current_session
+evt_20260116002253237236,2026-01-16T00:22:53.237254,app_start,current_user,{},current_session
+evt_20260116003046778991,2026-01-16T00:30:46.779009,app_start,current_user,{},current_session
+evt_20260116003325278109,2026-01-16T00:33:25.278125,app_start,current_user,{},current_session
+evt_20260116003752557115,2026-01-16T00:37:52.557134,app_start,current_user,{},current_session
+evt_20260116004056952790,2026-01-16T00:40:56.952812,app_start,current_user,{},current_session
+evt_20260116184156156840,2026-01-16T18:41:56.156864,app_start,current_user,{},current_session
+evt_20260116184212542746,2026-01-16T18:42:12.542782,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260116184802769540,2026-01-16T18:48:02.769557,app_start,current_user,{},current_session
+evt_20260116184814232199,2026-01-16T18:48:14.232220,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session
+evt_20260116185130943504,2026-01-16T18:51:30.943521,app_start,current_user,{},current_session
+evt_20260116185144707256,2026-01-16T18:51:44.707276,question_analysis_start,current_user,"{'model': 'flash', 'question_index': 1, 'beta_mode': True}",current_session

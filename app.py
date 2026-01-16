@@ -294,6 +294,10 @@ def main():
     if config.get_feature("enable_learning_mode"):
         menu_options.append("Öğren")
         menu_icons.append("book")
+
+    # Yeni Özellik: Çalışma Programı (Her zaman aktif veya flag ile)
+    menu_options.append("Çalışma Programı")
+    menu_icons.append("calendar3")
         
     if config.get_feature("enable_dashboard"):
         menu_options.append("Dashboard")
@@ -405,6 +409,13 @@ def main():
             ogren.show()
         except ImportError as e:
             st.error(f"Sayfa yüklenemedi: {e}")
+
+    elif selected == "Çalışma Programı":
+        try:
+            from pages import calisma_programi
+            calisma_programi.show()
+        except ImportError as e:
+            st.error(f"Program sayfası yüklenemedi: {e}")
     
     elif selected == "Dashboard":
         try:

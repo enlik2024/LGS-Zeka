@@ -175,6 +175,24 @@ class LLMAdapter:
         """Gemini ile görsel analiz."""
         return self.gemini.analyze_image(image, prompt)
 
+    def _safe_get_text(self, response) -> str:
+        """
+        Safely extracts text from response, handling blocks/filters.
+        """
+        try:
+            return response.text
+        except ValueError:
+            # Check if it's a safety block or empty
+            reason = "Unknown"
+            if response.candidates:
+                reason = response.candidates[0].finish_reason
+            
+            print(f"LLM Response Error. Finish Reason: {reason}")
+            if response.prompt_feedback:
+                 print(f"Prompt Feedback: {response.prompt_feedback}")
+                 
+            return ""
+
 
     def generate_content_fiches_from_images(self, images: List[bytes], lesson: str, topic: str, subtopic: str, publisher: Optional[str] = None, source_type: str = "ai_generated") -> Dict[str, Any]:
         """
@@ -196,7 +214,6 @@ class LLMAdapter:
         )
         
         # Gemini Pro Vision (veya 1.5 Flash) kullanımı
-        # GeminiHelper üzerinden çağırmak lazım ama helper metodumuz text/image ayrımını nasıl yapıyor?
         # Helper'a 'analyze_image' benzeri ama çoklu resim destekleyen bir metod lazım.
         # Şimdilik direkt model objesine erişip generate_content diyeceğiz.
         
@@ -235,13 +252,8 @@ class LLMAdapter:
                 generation_config=generation_config
             )
             
-            try:
-                text = response.text
-            except ValueError:
-                # Eğer response.text hata verirse (FinishReason yüzünden)
-                feedback = response.prompt_feedback
-                finish_reason = response.candidates[0].finish_reason if response.candidates else "Unknown"
-                st.error(f"LLM Yanıt Vermedi. Finish Reason: {finish_reason}. Feedback: {feedback}")
+            text = self._safe_get_text(response)
+            if not text:
                 return {"fiches": []}
             
             # JSON Temizliği (JSON mode kullansak bile bazen markdown gelebilir)
@@ -390,7 +402,8 @@ class LLMAdapter:
                 content_parts.append(img)
                 
             response = model.generate_content(content_parts)
-            return self._extract_json(response.text)
+            text = self._safe_get_text(response)
+            return self._extract_json(text)
             
         except Exception as e:
             print(f"Classification Error: {e}")
@@ -432,7 +445,8 @@ class LLMAdapter:
                 generation_config=generation_config
             )
             
-            return self._extract_json(response.text)
+            text = self._safe_get_text(response)
+            return self._extract_json(text)
             
         except Exception as e:
             # Hata detayını kullanıcıya gösterme, logla
@@ -693,10 +707,11 @@ class LLMAdapter:
             )
             
             # DEBUG: Gemini ham yanıtını logla
-            print(f"DEBUG - Gemini Raw Response: {response.text[:500]}")
+            text = self._safe_get_text(response)
+            print(f"DEBUG - Gemini Raw Response: {text[:500]}")
             
             # JSON parse - _clean_json_string kullan
-            cleaned_response = self._clean_json_string(response.text)
+            cleaned_response = self._clean_json_string(text)
             print(f"DEBUG - Cleaned Response: {cleaned_response[:300]}")
             
             try:
@@ -713,7 +728,7 @@ class LLMAdapter:
                     # Son çare: düz metin döndür
                     return {
                         "steps": ["Gemini yanıtı tamamlanamadı, lütfen tekrar deneyin."],
-                        "final_answer": response.text[:300] if response.text else "Yanıt alınamadı",
+                        "final_answer": text[:300] if text else "Yanıt alınamadı",
                         "confidence": 0,
                         "verification": {"verification_status": "unavailable"},
                         "status": "truncated"
@@ -724,7 +739,7 @@ class LLMAdapter:
                 print(f"DEBUG - No steps found, falling back")
                 return {
                     "steps": [],
-                    "final_answer": response.text[:500] if response.text else "Yanıt alınamadı",
+                    "final_answer": text[:500] if text else "Yanıt alınamadı",
                     "confidence": 0,
                     "verification": {"verification_status": "unavailable"},
                     "status": "fallback"

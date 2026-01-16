@@ -1,10 +1,57 @@
 lesson,topic,subtopic,importance_weight,active
-Matematik,Üslü İfadeler,Üslü Sayıların Özellikleri,5,True
-Matematik,Üslü İfadeler,Çözümleme,4,True
-Matematik,Kareköklü İfadeler,Tam Kare Sayılar,5,True
+Matematik,Çarpanlar ve Katlar,EBOB-EKOK Problemleri,5,True
+Matematik,Üslü İfadeler,Üslü İfadeler ve İşlemler,5,True
+Matematik,Kareköklü İfadeler,Gerçek Yaşam Problemleri,5,True
+Matematik,Veri Analizi,Grafik Türleri ve Yorumlama,4,True
+Matematik,Basit Olayların Olma Olasılığı,Olasılık Hesaplama,3,True
+Matematik,Cebirsel İfadeler,Özdeşlikler ve Modelleme,4,True
+Matematik,Doğrusal Denklemler,Denklem Kurma ve Çözme,5,True
+Matematik,Eşitsizlikler,Birinci Dereceden Eşitsizlikler,4,True
+Matematik,Üçgenler,Üçgenin Yardımcı Elemanları ve Eşitsizliği,4,True
+Matematik,Eşlik ve Benzerlik,Eşlik ve Benzerlik Oranı,4,True
+Matematik,Dönüşüm Geometrisi,Yansıma Öteleme Dönme,3,True
+Matematik,Geometrik Cisimler,Prizma Silindir Piramit Koni,4,True
 Fen Bilimleri,Mevsimler ve İklim,Mevsimlerin Oluşumu,5,True
-Fen Bilimleri,DNA ve Genetik Kod,DNA Yapısı,5,True
-Türkçe,Sözcükte Anlam,Gerçek Anlam,3,True
-Türkçe,Paragrafta Anlam,Ana Düşünce,5,True
-Matematik,"Çarpanlar ve Katlar, Üslü İfadeler","Çarpanlar ve Katlar, Üslü İfadeler",3,True
-"Matematik","Genel","Genel","3","True"
+Fen Bilimleri,Mevsimler ve İklim,İklim ve Hava Hareketleri,4,True
+Fen Bilimleri,DNA ve Genetik Kod,DNA ve Genetik Kod,5,True
+Fen Bilimleri,DNA ve Genetik Kod,Kalıtım ve Çaprazlama,5,True
+Fen Bilimleri,DNA ve Genetik Kod,Mutasyon Modifikasyon Adaptasyon,4,True
+Fen Bilimleri,DNA ve Genetik Kod,Biyoteknoloji,3,True
+Fen Bilimleri,Basınç,Katı Sıvı Gaz Basıncı,5,True
+Fen Bilimleri,Madde ve Endüstri,Periyodik Sistem,4,True
+Fen Bilimleri,Madde ve Endüstri,Fiziksel ve Kimyasal Değişimler,4,True
+Fen Bilimleri,Madde ve Endüstri,Asitler ve Bazlar,5,True
+Fen Bilimleri,Madde ve Endüstri,Maddenin Isı ile Etkileşimi,4,True
+Fen Bilimleri,Basit Makineler,Makaralar Kaldıraçlar Eğik Düzlem,5,True
+Fen Bilimleri,Enerji Dönüşümleri,Besin Zinciri ve Fotosentez/Solunum,5,True
+Fen Bilimleri,Elektrik Yükleri,Elektrik Yükleri ve Elektrik Enerjisi,4,True
+Türkçe,Sözcükte Anlam,Gerçek Mecaz Terim Anlam,4,True
+Türkçe,Cümlede Anlam,Neden-Sonuç Amaç-Sonuç,4,True
+Türkçe,Paragrafta Anlam,Ana Düşünce Yardımcı Düşünce,5,True
+Türkçe,Dil Bilgisi,Fiilimsiler,3,True
+Türkçe,Dil Bilgisi,Cümlenin Ögeleri,3,True
+Türkçe,Dil Bilgisi,Fiilde Çatı,2,True
+Türkçe,Dil Bilgisi,Cümle Türleri,2,True
+Türkçe,Yazım ve Noktalama,Yazım Kuralları ve Noktalama İşaretleri,4,True
+Türkçe,Metin Türleri,Sözel Mantık ve Muhakeme,5,True
+T.C. İnkılap Tarihi,Bir Kahraman Doğuyor,Mustafa Kemal'in Hayatı,3,True
+T.C. İnkılap Tarihi,Milli Uyanış,Mondros ve Cemiyetler,4,True
+T.C. İnkılap Tarihi,Ya İstiklal Ya Ölüm,Cepheler ve Lozan,5,True
+T.C. İnkılap Tarihi,Atatürkçülük ve Çağdaşlaşan Türkiye,İlke ve İnkılaplar,5,True
+T.C. İnkılap Tarihi,Demokratikleşme Çabaları,Çok Partili Hayat,3,True
+T.C. İnkılap Tarihi,Dış Politika,Atatürk Dönemi Dış Politika,3,True
+İngilizce,Friendship,Accepting and Refusing,3,True
+İngilizce,Teen Life,Daily Routines and Preferences,3,True
+İngilizce,In The Kitchen,Process and Ingredients,3,True
+İngilizce,On The Phone,Communication,3,True
+İngilizce,The Internet,Internet Habits and Safety,3,True
+İngilizce,Adventures,Extreme Sports,3,True
+İngilizce,Tourism,Experiences,3,True
+İngilizce,Chores,Responsibilities,3,True
+İngilizce,Science,Scientific Achievements,3,True
+İngilizce,Natural Forces,Disasters,3,True
+Din Kültürü,Kader İnancı,Kader ve Kaza,4,True
+Din Kültürü,Zekat ve Sadaka,Yardımlaşma,4,True
+Din Kültürü,Din ve Hayat,Dinin Bireysel Toplumsal Etkisi,3,True
+Din Kültürü,Hz. Muhammed'in Örnekliği,Güvenilirliği ve Merhameti,4,True
+Din Kültürü,Kuran-ı Kerim,İslam Dininin Temel Kaynakları,3,True

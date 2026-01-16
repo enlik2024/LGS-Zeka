@@ -32,6 +32,9 @@ def show():
     gm = get_gamification_manager()
     gm.update_streak()
     
+    # DB Manager (Always init)
+    db = get_db_manager()
+    
     # Sayfa başlığı
     st.markdown("""
         <div style='text-align: center; padding: 1rem 0;'>
