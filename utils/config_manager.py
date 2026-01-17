@@ -196,19 +196,31 @@ class UnifiedConfigManager:
     def get_model(self, model_type: str = "primary") -> str:
         """
         Model adını al.
+        Öncelik: Secrets > App Config > Hardcoded Default
         
         Args:
             model_type: "primary", "fallback_1", "fallback_2", "tts", "audio_dialog"
         """
+        # 1. Check Secrets (User Override)
+        try:
+            gemini_secrets = st.secrets.get("gemini", {})
+            if model_type == "primary" and "default_model" in gemini_secrets:
+                return gemini_secrets["default_model"]
+            if model_type == "primary" and "pro_model" in gemini_secrets: # Legacy naming support
+                 return gemini_secrets["pro_model"]
+        except:
+            pass
+
+        # 2. Check App Config (YAML)
         models_config = self.get("ai.models", {})
         
         # Text modelleri
         if model_type in ["primary", "fallback_1", "fallback_2"]:
             text_models = models_config.get("text", {})
-            return text_models.get(model_type, "gemini-2.5-flash")
+            return text_models.get(model_type, "gemini-3-flash-preview")
         
         # Özel modeller
-        return models_config.get(model_type, "gemini-2.5-flash")
+        return models_config.get(model_type, "gemini-3-flash-preview")
     
     def get_model_cascade(self) -> List[str]:
         """Model fallback sıralamasını döndür."""

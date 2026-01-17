@@ -220,120 +220,29 @@ def render_parent_settings():
 
 
 def render_schedule_settings():
-    """Çalışma programı ayarları."""
-    st.subheader("Haftalık Rutin Planlayıcı")
+    """Çalışma programı ayarları (YENİ SİSTEME YÖNLENDİRME)."""
+    st.subheader("📅 Haftalık Rutin Planlayıcı")
     
-    is_parent = st.session_state.get("is_parent_logged_in", False)
+    st.warning("⚠️ Bu panel taşınmıştır!")
+    st.info("""
+    Ders programı yönetimi artık daha gelişmiş özelliklerle **'Çalışma Programı'** sayfasında yapılmaktadır.
     
-    if not is_parent:
-        st.warning("🔒 Çalışma programı sadece veli tarafından değiştirilebilir. Şu an sadece görüntüleme modundasınız.")
-        st.info("Değişiklik yapmak için 'Veli Paneli' sekmesinden giriş yapmalısınız.")
-        
-    schedule = get_schedule_engine()
+    Lütfen sol menüden **Çalışma Programı** sayfasına gidiniz.
+    """)
     
-    # Gün Seçimi
-    days_map = {
-        "Pazartesi": "Monday",
-        "Salı": "Tuesday",
-        "Çarşamba": "Wednesday",
-        "Perşembe": "Thursday",
-        "Cuma": "Friday",
-        "Cumartesi": "Saturday",
-        "Pazar": "Sunday"
-    }
-    
-    col_day, col_copy = st.columns([2, 1])
-    with col_day:
-        selected_day_tr = st.selectbox("📅 Gün Seçin", list(days_map.keys()))
-        selected_day_eng = days_map[selected_day_tr]
-        
-    with col_copy:
-        st.write("") # Spacer
-        st.write("")
-        copy_to_all = st.checkbox("Tüm Günlere Uygula", value=False, disabled=not is_parent, help="Bu programı haftanın tüm günlerine kopyalar.")
-
-    # Seçili günün mevcut programını yükle (Varsa)
-    current_schedule = schedule.get_schedule_for_day(selected_day_eng)
-    if current_schedule:
-        st.info(f"{selected_day_tr} için {len(current_schedule)} blok tanımlı.")
-    else:
-        st.info(f"{selected_day_tr} için henüz özel bir program yok (Varsayılan şablon yoksa boş).")
-
-    # Form (Veli değilse disabled)
-    with st.form("schedule_form"):
-        col1, col2 = st.columns(2)
-        
-        with col1:
-            st.markdown("#### 🌅 Sabah")
-            wake_up = st.time_input("Güne Başlama Saati", value=time(9, 0), disabled=not is_parent)
-            first_block_start = st.time_input("İlk Ders Başlangıcı", value=time(10, 0), disabled=not is_parent)
-            
-        with col2:
-            st.markdown("#### 📚 Blok Yapısı")
-            block_duration = st.number_input("Ders Bloğu (dk)", min_value=20, max_value=60, value=30, step=5, disabled=not is_parent)
-            break_duration = st.number_input("Mola Süresi (dk)", min_value=5, max_value=30, value=10, step=5, disabled=not is_parent)
-            long_break_duration = st.number_input("Uzun Mola (dk)", min_value=15, max_value=60, value=30, step=5, disabled=not is_parent)
-            
-        st.markdown("#### 🎯 Günlük Hedefler")
-        daily_blocks = st.slider("Günlük Blok Sayısı", min_value=1, max_value=8, value=4, disabled=not is_parent)
-        
-        # Buton sadece veliye açık
-        submitted = st.form_submit_button(f"💾 {selected_day_tr} Programını Kaydet", disabled=not is_parent)
-        
-        if submitted and is_parent:
-            # ScheduleEngine üzerinden programı oluştur ve kaydet
-            try:
-                # Mock data oluşturucu (Generator)
-                new_schedule = []
-                current_time = datetime.combine(datetime.today(), first_block_start)
-                
-                for i in range(daily_blocks):
-                    # Ders Bloğu
-                    end_time = current_time + pd.Timedelta(minutes=block_duration)
-                    new_schedule.append({
-                        "id": f"blk_{i+1}",
-                        "start": current_time.strftime("%H:%M"),
-                        "end": end_time.strftime("%H:%M"),
-                        "type": "etut",
-                        "task": f"Blok {i+1}: Konu Çalışması", 
-                        "desc": "Otomatik oluşturuldu",
-                        "status": "pending",
-                        "duration_min": block_duration
-                    })
-                    
-                    # Mola (Son blok değilse)
-                    if i < daily_blocks - 1:
-                        current_time = end_time
-                        # Her 2 blokta bir uzun mola
-                        is_long_break = (i + 1) % 2 == 0
-                        duration = long_break_duration if is_long_break else break_duration
-                        type_str = "uzun_mola" if is_long_break else "mola"
-                        
-                        mola_end = current_time + pd.Timedelta(minutes=duration)
-                        new_schedule.append({
-                            "id": f"brk_{i+1}",
-                            "start": current_time.strftime("%H:%M"),
-                            "end": mola_end.strftime("%H:%M"),
-                            "type": type_str,
-                            "task": "Mola Zamanı ☕",
-                            "desc": "Dinlen ve yenilen",
-                            "status": "pending",
-                            "duration_min": duration
-                        })
-                        current_time = mola_end
-                    else:
-                        current_time = end_time
-
-                # ScheduleEngine üzerinden kaydet
-                schedule.save_schedule(new_schedule, day=selected_day_eng, overwrite_all=copy_to_all)
-                
-                if copy_to_all:
-                    st.success("✅ Program TÜM GÜNLER için güncellendi!")
-                else:
-                    st.success(f"✅ {selected_day_tr} programı güncellendi!")
-                
-            except Exception as e:
-                st.error(f"Hata oluştu: {e}")
+    st.markdown("""
+    <a href="/calisma_programi" target="_self">
+        <button style="
+            background-color: #2E86AB;
+            color: white;
+            padding: 10px 24px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            width: 100%;
+        ">🚀 Çalışma Programı Sayfasına Git</button>
+    </a>
+    """, unsafe_allow_html=True)
 
 def render_profile_settings():
     """Profil ayarları."""

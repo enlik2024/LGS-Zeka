@@ -506,6 +506,113 @@ class DatabaseManager:
                 print(f"Supabase Flashcard Load Error: {e}")
         return None
 
+    # ============ SCHEDULE (SUPABASE) ============
+
+    def load_schedule(self, student_id: str = "pilot_ogrenci_01") -> pd.DataFrame:
+        """
+        Ders programını Supabase'den yükler.
+        Aktif ve bekleyen programı getirir.
+        """
+        if self.db_type == "supabase" and self._client:
+            try:
+                # Sadece aktif olanları getir
+                res = self._client.table("schedules").select("*")\
+                    .eq("student_id", student_id)\
+                    .eq("is_active", True)\
+                    .execute()
+                
+                if res.data:
+                    return pd.DataFrame(res.data)
+            except Exception as e:
+                print(f"Schedule Load Error: {e}")
+        
+        return pd.DataFrame()
+
+    def save_schedule(self, schedule_df: pd.DataFrame, student_id: str = "pilot_ogrenci_01") -> bool:
+        """
+        Tüm ders programını Supabase'e kaydeder (Önceki aktifleri pasife çeker).
+        """
+        if self.db_type == "supabase" and self._client:
+            try:
+                if schedule_df.empty:
+                    return False
+
+                # 1. Mevcut programı 'inactive' yap (Soft Delete)
+                # self._client.table("schedules").update({"is_active": False}).eq("student_id", student_id).execute()
+                # Alternatif: MVP için direkt silip yeniden ekleyebiliriz veya upsert yapabiliriz.
+                # Ancak 'Program Yenileme' senaryosunda eskiyi silmek daha temiz.
+                self._client.table("schedules").delete().eq("student_id", student_id).execute()
+                print("Old schedule cleared.")
+
+                # 2. Yeni programı ekle
+                records = schedule_df.to_dict('records')
+                
+                # Timestamp ve ID ekle
+                cleaned_records = []
+                for r in records:
+                    cleaned_records.append({
+                        "student_id": student_id,
+                        "day_of_week": r.get('day_of_week'),
+                        "block_time": r.get('block_time'),
+                        "block_start": r.get('block_start'), # Missing field fix
+                        "block_end": r.get('block_end'),     # Missing field fix
+                        "block_type": r.get('block_type'),
+                        "lesson": r.get('lesson'),
+                        "topic": r.get('topic'),
+                        "subtopic": r.get('subtopic'),
+                        "target_desc": r.get('target_desc') or r.get('desc'), # Desc alanını target_desc'e map et
+                        "status": r.get('status', 'pending'),
+                        "is_active": True
+                    })
+                
+                # Batch insert (Supabase genelde batch destekler)
+                self._client.table("schedules").insert(cleaned_records).execute()
+                print("New schedule saved to DB.")
+                return True
+                
+            except Exception as e:
+                st.error(f"Schedule Save Error: {e}")
+                print(f"Schedule Save Error: {e}")
+        return False
+
+    def upload_calendar_file(self, file_content: str, student_id: str) -> Optional[str]:
+        """
+        Ders programını .ics dosyası olarak Supabase Storage'a yükler.
+        Return: Public URL veya None
+        """
+        if self.db_type == "supabase" and self._client:
+            try:
+                # Bucket adı: calendars
+                bucket_name = "calendars"
+                file_name = f"schedule_{student_id}.ics"
+                
+                # Önce dosya var mı diye bakmak yerine direkt 'upsert' (update or insert) deniyoruz.
+                # Supabase python client'ında upload metodunda 'file_options' ile overwrite yapılabiliyor mu?
+                # Genelde: remove -> upload veya update metodu kullanılır.
+                
+                # İçeriği bytes'a çevir
+                file_bytes = file_content.encode('utf-8')
+                
+                # Dosyayı yükle (upsert=True ile üzerine yazma)
+                # Not: supabase-py client versiyonuna göre parametreler değişebilir.
+                # Standart kullanım: storage.from_(bucket).upload(path, file, file_options={"contentType": "text/calendar", "upsert": "true"})
+                
+                res = self._client.storage.from_(bucket_name).upload(
+                    path=file_name,
+                    file=file_bytes,
+                    file_options={"content-type": "text/calendar", "upsert": "true"}
+                )
+                
+                # Public URL al
+                public_url = self._client.storage.from_(bucket_name).get_public_url(file_name)
+                return public_url
+                
+            except Exception as e:
+                print(f"Calendar Upload Error: {e}")
+                # st.error(f"Takvim yükleme hatası: {e}") # UI'da göstermeyelim, silent fail olsun
+                return None
+        return None
+
 
 # Singleton instance
 @st.cache_resource

@@ -200,5 +200,71 @@ class SchedulerEngine:
                 
         return filled_schedule.to_dict('records')
 
+    def save_active_schedule(self, schedule_data_or_df):
+        """
+        Saves the schedule to database.
+        schedule_data_or_df: Can be list of dicts (from db) or DataFrame.
+        """
+        if isinstance(schedule_data_or_df, list):
+            df = pd.DataFrame(schedule_data_or_df)
+        elif isinstance(schedule_data_or_df, pd.DataFrame):
+            df = schedule_data_or_df
+        else:
+            print("Unknown schedule data format.")
+            return False
+            
+        return self.db.save_schedule(df)
+
+    def _inject_dates(self, records: list) -> list:
+        """
+        Injects the calculated 'date' field into schedule records based on 'day_of_week'.
+        Uses the current week's dates.
+        """
+        if not records:
+            return []
+            
+        start_date = datetime.now()
+        day_map = {
+            'Monday': 0, 'Tuesday': 1, 'Wednesday': 2, 'Thursday': 3, 
+            'Friday': 4, 'Saturday': 5, 'Sunday': 6
+        }
+        current_weekday = start_date.weekday()
+        monday_date = start_date - timedelta(days=current_weekday)
+        
+        for row in records:
+            # If date is missing, calculate it
+            if 'date' not in row:
+                if 'day_of_week' in row and row['day_of_week'] in day_map:
+                    day_offset = day_map[row['day_of_week']]
+                    actual_date = monday_date + timedelta(days=day_offset)
+                    row['date'] = actual_date.strftime("%Y-%m-%d")
+                else:
+                    row['date'] = datetime.now().strftime("%Y-%m-%d")
+                    
+        return records
+
+    def load_active_schedule(self):
+        """Loads schedule from DB (or template if DB empty)."""
+        # 1. Try DB
+        schedule_df = self.db.load_schedule()
+        if not schedule_df.empty:
+            records = schedule_df.to_dict('records')
+            return self._inject_dates(records)
+            
+        # 2. Fallback to local template if DB is empty
+        if os.path.exists(self.schedule_template_file):
+             template = pd.read_csv(self.schedule_template_file)
+             
+             # Convert template format to DB format (minimal)
+             # Default values for persistence
+             template['student_id'] = 'pilot_ogrenci_01'
+             template['status'] = 'pending'
+             template['is_active'] = True
+             
+             records = template.to_dict('records')
+             return self._inject_dates(records)
+             
+        return []
+
 def get_scheduler_engine():
     return SchedulerEngine()

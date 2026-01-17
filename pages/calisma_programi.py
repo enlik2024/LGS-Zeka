@@ -125,8 +125,11 @@ def show():
                         topic_weights=topic_weights,
                         preserve_manual=preserve_manual
                     )
+                    # DB'ye kaydet
+                    scheduler.save_active_schedule(schedule_data)
+                    
                     st.session_state['generated_schedule'] = schedule_data
-                    st.success("Program başarıyla güncellendi!")
+                    st.success("Program başarıyla güncellendi ve kaydedildi!")
                     st.rerun()
             
             if st.button("🔓 Çıkış Yap (Veli)", key="btn_logout_sched"):
@@ -207,35 +210,61 @@ def show():
                     new_schedule[idx]['block_type'] = row['block_type']
                     
                 st.session_state['generated_schedule'] = new_schedule
-                st.success("Program güncellendi!")
+                
+                # DB'ye kaydet
+                scheduler.save_active_schedule(new_schedule)
+                
+                st.success("Program güncellendi ve kaydedildi!")
                 st.rerun()
                 
     st.markdown("---")
     
-    # Program Verisi (Session State veya Yeni Oluşturulan)
+    # Program Verisi (Session State veya DB'den)
+    if 'generated_schedule' not in st.session_state:
+        # DB'den yüklemeyi dene
+        loaded_schedule = scheduler.load_active_schedule()
+        if loaded_schedule:
+             st.session_state['generated_schedule'] = loaded_schedule
+    
     schedule_data = st.session_state.get('generated_schedule', [])
     
     if not schedule_data:
-        # Eğer session'da yoksa, mevcut schedule.csv'yi (template) veya direk scheduler'dan çekmeyi dene
-        # Ama scheduler.generate_weekly_schedule() her çağrıda yeni konu atayabilir mi? Evet.
-        # İlk yüklemede belki sadece template göster, veya son kaydedileni göster.
-        # Şimdilik: Kullanıcı butona basınca oluşsun.
-        st.warning("⚠️ Henüz bir program oluşturmadın. Yukarıdaki butona basarak başlayabilirsin.")
+        # Eğer session'da ve DB'de yoksa
+        st.warning("⚠️ Henüz bir program oluşturmadın. Yukarıdaki butona basarak veya 'Dersleri Seçip' program oluşturabilirsin.")
     else:
-        # Takvime Ekle Butonu
+        # Takvime Ekle Butonu / Magic Link
         exporter = CalendarExporter()
         ics_content = exporter.generate_ics(schedule_data)
         
         col_dl1, col_dl2 = st.columns([1, 1])
         with col_dl1:
             st.download_button(
-                label="📅 Takvimine Ekle (.ics İndir)",
+                label="📥 Dosya Olarak İndir (.ics)",
                 data=ics_content,
                 file_name="LGS_Programi.ics",
                 mime="text/calendar",
                 use_container_width=True,
-                help="Bu dosyayı indirip telefonunda veya bilgisayarında açarsan programın takvimine işlenir."
+                help="Manuel ekleme için dosyayı indirir."
             )
+            
+        with col_dl2:
+            # Otomatik Bulut Senkronizasyonu (Magic Link)
+            if st.button("🔄 Buluta Yükle & Link Al", type="primary", use_container_width=True, help="Google Takvim'e abone olmak için sabit link oluşturur."):
+                with st.spinner("Takvim buluta yükleniyor..."):
+                    # Veritabanı yöneticisi üzerinden yükle
+                    public_url = scheduler.db.upload_calendar_file(ics_content, "pilot_ogrenci_01")
+                    
+                    if public_url:
+                        st.session_state['calendar_url'] = public_url
+                        st.success("Takvim başarıyla senkronize edildi! ☁️")
+                    else:
+                        st.error("Yükleme başarısız. Supabase Storage ayarlarını kontrol edin.")
+
+        # Eğer link varsa göster
+        if st.session_state.get('calendar_url'):
+            st.info("👇 Bu linki Google Takvim'de 'URL ile Ekle' kısmına yapıştırın:")
+            st.code(st.session_state['calendar_url'], language="text")
+            st.caption("Bu link sabittir. Programı her güncellediğinizde 'Buluta Yükle' derseniz takviminiz otomatik güncellenir.")
         
         # Programı Görselleştirme
         df = pd.DataFrame(schedule_data)

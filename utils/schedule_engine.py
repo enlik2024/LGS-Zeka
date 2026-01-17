@@ -1,5 +1,8 @@
 """
-Schedule Engine
+Schedule Engine (DEPRECATED)
+⚠️ BU DOSYA VE 'schedule' TABLOSU ARTIK KULLANILMAMAKTADIR.
+Lütfen 'utils/scheduler_engine.py' ve 'schedules' tablosunu kullanın.
+
 Günlük çalışma planı ve zaman yönetimi motoru.
 """
 

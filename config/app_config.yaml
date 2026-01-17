@@ -45,10 +45,10 @@ ai:
     text:
       primary: "gemini-3-flash-preview"
       fallback_1: "gemini-2.5-flash"
-      fallback_2: "gemini-2.5-flash-lite"
+      fallback_2: "gemini-2.0-flash-exp"
     
     tts: "gemini-2.5-flash-tts"
-    audio_dialog: "gemini-2.5-flash-native-audio-dialog"
+    audio_dialog: "gemini-3-flash-native-audio-dialog"
   
   # Generation parametreleri
   # KRITIK: response_mime_type JSON mode'u aktif eder - geçerli JSON çıktısı garanti
