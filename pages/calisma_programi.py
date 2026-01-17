@@ -84,6 +84,44 @@ def show():
                     format_func=lambda x: day_labels.get(x, x),
                     help="Programın hangi günlerde oluşturulacağını seçin."
                 )
+                
+                # Ders ve Mola Süreleri
+                st.markdown("---")
+                st.markdown("##### ⏱️ Ders ve Mola Süreleri")
+                
+                col_dur1, col_dur2, col_dur3 = st.columns(3)
+                with col_dur1:
+                    block_duration = st.number_input(
+                        "Ders Bloku (dk)",
+                        min_value=20,
+                        max_value=60,
+                        value=30,
+                        step=5,
+                        help="Her ders blokunun süresi (dakika)",
+                        key="schedule_block_duration"
+                    )
+                    
+                with col_dur2:
+                    short_break = st.number_input(
+                        "Kısa Mola (dk)",
+                        min_value=5,
+                        max_value=20,
+                        value=10,
+                        step=5,
+                        help="Kısa molalar (her ders arası)",
+                        key="schedule_short_break"
+                    )
+                    
+                with col_dur3:
+                    long_break = st.number_input(
+                        "Uzun Mola / Yemek (dk)",
+                        min_value=15,
+                        max_value=60,
+                        value=30,
+                        step=5,
+                        help="Uzun molalar (her 2 derste bir)",
+                        key="schedule_long_break"
+                    )
             
             # Veli Kontrol Paneli / Ders Ağırlıkları
             with st.expander("⚙️ Ders Ağırlıkları & Öncelikler (Opsiyonel)", expanded=False):
@@ -161,7 +199,10 @@ def show():
                         preserve_manual=preserve_manual,
                         start_time=start_time,
                         num_blocks=int(num_blocks),
-                        active_days=active_days
+                        active_days=active_days,
+                        block_duration=int(block_duration),
+                        short_break=int(short_break),
+                        long_break=int(long_break)
                     )
                     # DB'ye kaydet
                     scheduler.save_active_schedule(schedule_data)

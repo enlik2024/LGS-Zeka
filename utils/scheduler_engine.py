@@ -127,7 +127,8 @@ class SchedulerEngine:
         return topic_list
 
     def generate_weekly_schedule(self, start_date=None, custom_weights=None, topic_weights=None, 
-                                     preserve_manual=True, start_time=None, num_blocks=5, active_days=None):
+                                     preserve_manual=True, start_time=None, num_blocks=5, active_days=None,
+                                     block_duration=30, short_break=10, long_break=30):
         """
         Generates a filled schedule for the upcoming week.
         
@@ -136,6 +137,9 @@ class SchedulerEngine:
             num_blocks: Number of study blocks per day
             active_days: List of day names (e.g., ["Monday", "Tuesday"])
             preserve_manual: If True, do not overwrite blocks manually edited by user.
+            block_duration: Study block duration in minutes
+            short_break: Short break duration in minutes
+            long_break: Long break / meal break duration in minutes
         """
         from datetime import time as dt_time
         
@@ -149,9 +153,6 @@ class SchedulerEngine:
         if start_time and num_blocks:
             # Dynamic Template Generation
             template_rows = []
-            block_duration = 30  # minutes
-            short_break = 10
-            long_break = 30
             
             for day in active_days:
                 current_time = datetime.combine(datetime.today(), start_time)
