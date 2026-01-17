@@ -128,12 +128,13 @@ class SchedulerEngine:
 
     def generate_weekly_schedule(self, start_date=None, custom_weights=None, topic_weights=None, 
                                      preserve_manual=True, start_time=None, num_blocks=5, active_days=None,
-                                     block_duration=30, short_break=10, long_break=30, long_break_interval=2):
+                                     block_duration=30, short_break=10, long_break=30, long_break_interval=2,
+                                     break_durations=None):
         """
         Generates a filled schedule for the upcoming week.
         
         Args:
-            long_break_interval: How many blocks before a long break (default 2)
+            break_durations: Optional list of custom break durations (integers)
         """
         from datetime import time as dt_time
         
@@ -171,25 +172,30 @@ class SchedulerEngine:
                         "is_completed": False
                     })
                     
-                    # Break Calculation
-                    # If this is the Nth block (e.g. 2nd, 4th), use long break
-                    is_long_break = (block_num % long_break_interval == 0)
-                    
-                    break_duration = long_break if is_long_break else short_break
-                    break_start = current_time.strftime("%H:%M")
-                    current_time += timedelta(minutes=break_duration)
-                    break_end = current_time.strftime("%H:%M")
-                    
                     if i < num_blocks - 1:  # No break after last block
+                        # Break Duration Logic
+                        if break_durations and i < len(break_durations):
+                            break_duration = break_durations[i]
+                            is_long = break_duration >= 25 # Heuristic for labeling
+                        else:
+                            is_long = ((block_num % long_break_interval) == 0)
+                            break_duration = long_break if is_long else short_break
+                            
+                        break_start = current_time.strftime("%H:%M")
+                        current_time += timedelta(minutes=break_duration)
+                        break_end = current_time.strftime("%H:%M")
+                        
+                        task_label = "Yemek / Uzun Mola 🍽️" if (break_duration >= 30) else "Mola Zamanı ☕"
+                        
                         template_rows.append({
                             "schedule_id": f"{day[:3]}_brk_{block_num}",
                             "student_id": "pilot_ogrenci_01",
                             "day_of_week": day,
                             "block_start": break_start,
                             "block_end": break_end,
-                            "block_type": "uzun_mola" if is_long_break else "mola",
-                            "task_type": "Mola Zamanı ☕" if not is_long_break else "Yemek / Uzun Mola 🍽️",
-                            "target_desc": "Dinlen ve yenilen",
+                            "block_type": "uzun_mola" if break_duration >= 20 else "mola",
+                            "task_type": task_label,
+                            "target_desc": f"{break_duration} dk dinlenme",
                             "is_active": True,
                             "is_completed": False
                         })

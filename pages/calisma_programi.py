@@ -89,48 +89,80 @@ def show():
                 st.markdown("---")
                 st.markdown("##### ⏱️ Ders ve Mola Süreleri")
                 
-                col_dur1, col_dur2, col_dur3 = st.columns(3)
-                with col_dur1:
-                    block_duration = st.number_input(
-                        "Ders Bloku (dk)",
-                        min_value=20,
-                        max_value=60,
-                        value=30,
-                        step=5,
-                        help="Her ders blokunun süresi (dakika)",
-                        key="schedule_block_duration"
+                # Gelişmiş Mod Toggle
+                advanced_breaks = st.checkbox("🛠️ Gelişmiş Mola Ayarları (Her molayı ayrı belirle)", value=False, help="Her blok arasındaki molayı farklı ayarlamak için seçin (Örn: 10dk, 30dk, 10dk...).")
+                
+                custom_break_list = []
+                
+                if advanced_breaks:
+                    # Dinamik Mola Girişleri
+                    if num_blocks > 1:
+                        st.info(f"Toplam {num_blocks} ders bloku için {num_blocks-1} adet mola belirleyin:")
+                        
+                        cols = st.columns(min(4, num_blocks-1)) # Maksimum 4 kolon yan yana
+                        
+                        for i in range(num_blocks - 1):
+                            with cols[i % 4]:
+                                b_val = st.number_input(
+                                    f"Mola {i+1} (Ders {i+1}-{i+2} arası)",
+                                    min_value=5, max_value=120, value=10 if (i+1)%2!=0 else 30,
+                                    step=5,
+                                    key=f"custom_break_{i}"
+                                )
+                                custom_break_list.append(b_val)
+                                
+                        block_duration = st.number_input("Ders Bloku Süresi (dk)", min_value=20, max_value=90, value=30, step=5)
+                        short_break = 0 # Kullanılmayacak
+                        long_break = 0 # Kullanılmayacak
+                        long_break_interval = 0 # Kullanılmayacak
+                    else:
+                        st.warning("Tek blok olduğu için mola yok.")
+                        block_duration = st.number_input("Ders Bloku Süresi (dk)", min_value=20, max_value=90, value=30, step=5)
+
+                else:
+                    # Standart Mod (Mevcut Kod)
+                    col_dur1, col_dur2, col_dur3 = st.columns(3)
+                    with col_dur1:
+                        block_duration = st.number_input(
+                            "Ders Bloku (dk)",
+                            min_value=20,
+                            max_value=60,
+                            value=30,
+                            step=5,
+                            help="Her ders blokunun süresi (dakika)",
+                            key="schedule_block_duration"
+                        )
+                        
+                    with col_dur2:
+                        short_break = st.number_input(
+                            "Kısa Mola (dk)",
+                            min_value=5,
+                            max_value=20,
+                            value=10,
+                            step=5,
+                            help="Kısa molalar (her ders arası)",
+                            key="schedule_short_break"
+                        )
+                        
+                    with col_dur3:
+                        long_break = st.number_input(
+                            "Uzun Mola / Yemek (dk)",
+                            min_value=15,
+                            max_value=60,
+                            value=30,
+                            step=5,
+                            help="Uzun molalar (her X derste bir)",
+                            key="schedule_long_break"
+                        )
+                        
+                    long_break_interval = st.number_input(
+                        "🍛 Kaç Derste Bir Uzun Mola?",
+                        min_value=1,
+                        max_value=8,
+                        value=2,
+                        help="Örneğin 2 seçerseniz: Ders-Ders-UZUN MOLA-Ders-Ders... şeklinde gider.",
+                        key="schedule_long_break_int"
                     )
-                    
-                with col_dur2:
-                    short_break = st.number_input(
-                        "Kısa Mola (dk)",
-                        min_value=5,
-                        max_value=20,
-                        value=10,
-                        step=5,
-                        help="Kısa molalar (her ders arası)",
-                        key="schedule_short_break"
-                    )
-                    
-                with col_dur3:
-                    long_break = st.number_input(
-                        "Uzun Mola / Yemek (dk)",
-                        min_value=15,
-                        max_value=60,
-                        value=30,
-                        step=5,
-                        help="Uzun molalar (her X derste bir)",
-                        key="schedule_long_break"
-                    )
-                    
-                long_break_interval = st.number_input(
-                    "🍛 Kaç Derste Bir Uzun Mola?",
-                    min_value=1,
-                    max_value=8,
-                    value=2,
-                    help="Örneğin 2 seçerseniz: Ders-Ders-UZUN MOLA-Ders-Ders... şeklinde gider.",
-                    key="schedule_long_break_int"
-                )
             
             # Veli Kontrol Paneli / Ders Ağırlıkları
             with st.expander("⚙️ Ders Ağırlıkları & Öncelikler (Opsiyonel)", expanded=False):
@@ -212,7 +244,8 @@ def show():
                         block_duration=int(block_duration),
                         short_break=int(short_break),
                         long_break=int(long_break),
-                        long_break_interval=int(long_break_interval)
+                        long_break_interval=int(long_break_interval),
+                        break_durations=custom_break_list
                     )
                     # DB'ye kaydet
                     scheduler.save_active_schedule(schedule_data)
