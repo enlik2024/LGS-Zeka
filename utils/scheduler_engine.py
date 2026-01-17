@@ -126,15 +126,84 @@ class SchedulerEngine:
             
         return topic_list
 
-    def generate_weekly_schedule(self, start_date=None, custom_weights=None, topic_weights=None, preserve_manual=True):
+    def generate_weekly_schedule(self, start_date=None, custom_weights=None, topic_weights=None, 
+                                     preserve_manual=True, start_time=None, num_blocks=5, active_days=None):
         """
-        Generates a filled schedule for the upcoming week based on the template.
-        preserve_manual: If True, do not overwrite blocks manually edited by user.
+        Generates a filled schedule for the upcoming week.
+        
+        Args:
+            start_time: datetime.time object for daily start (e.g., time(15, 0))
+            num_blocks: Number of study blocks per day
+            active_days: List of day names (e.g., ["Monday", "Tuesday"])
+            preserve_manual: If True, do not overwrite blocks manually edited by user.
         """
-        if not os.path.exists(self.schedule_template_file):
-            return []
+        from datetime import time as dt_time
+        
+        # Default values
+        if start_time is None:
+            start_time = dt_time(14, 30)
+        if active_days is None:
+            active_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+        
+        # Generate template dynamically OR use CSV fallback
+        if start_time and num_blocks:
+            # Dynamic Template Generation
+            template_rows = []
+            block_duration = 30  # minutes
+            short_break = 10
+            long_break = 30
             
-        template = pd.read_csv(self.schedule_template_file)
+            for day in active_days:
+                current_time = datetime.combine(datetime.today(), start_time)
+                block_num = 1
+                
+                for i in range(num_blocks):
+                    # Study Block
+                    block_start = current_time.strftime("%H:%M")
+                    current_time += timedelta(minutes=block_duration)
+                    block_end = current_time.strftime("%H:%M")
+                    
+                    template_rows.append({
+                        "schedule_id": f"{day[:3]}_blk_{block_num}",
+                        "student_id": "pilot_ogrenci_01",
+                        "day_of_week": day,
+                        "block_start": block_start,
+                        "block_end": block_end,
+                        "block_type": "etut",
+                        "task_type": f"Blok {block_num}: Konu Çalışması",
+                        "target_desc": "Otomatik oluşturuldu",
+                        "is_active": True,
+                        "is_completed": False
+                    })
+                    
+                    # Break (alternating short/long)
+                    break_duration = long_break if (block_num % 2 == 0) else short_break
+                    break_start = current_time.strftime("%H:%M")
+                    current_time += timedelta(minutes=break_duration)
+                    break_end = current_time.strftime("%H:%M")
+                    
+                    if i < num_blocks - 1:  # No break after last block
+                        template_rows.append({
+                            "schedule_id": f"{day[:3]}_brk_{block_num}",
+                            "student_id": "pilot_ogrenci_01",
+                            "day_of_week": day,
+                            "block_start": break_start,
+                            "block_end": break_end,
+                            "block_type": "uzun_mola" if break_duration == long_break else "mola",
+                            "task_type": "Mola Zamanı ☕",
+                            "target_desc": "Dinlen ve yenilen",
+                            "is_active": True,
+                            "is_completed": False
+                        })
+                    
+                    block_num += 1
+            
+            template = pd.DataFrame(template_rows)
+        elif os.path.exists(self.schedule_template_file):
+            # Fallback to CSV
+            template = pd.read_csv(self.schedule_template_file)
+        else:
+            return []
         
         # Identify 'etut' blocks that need filling
         indices_to_fill = []
