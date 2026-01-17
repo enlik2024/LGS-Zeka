@@ -166,6 +166,14 @@ def show():
             # DataFrame'i düzenlenebilir yap
             current_df = pd.DataFrame(st.session_state['generated_schedule'])
             
+            # Eksik kolonları varsayılan değerlerle doldur (DB'den yüklendiğinde bazı alanlar eksik olabilir)
+            if 'task_type' not in current_df.columns:
+                current_df['task_type'] = current_df.get('lesson', 'Genel')
+            if 'block_start' not in current_df.columns:
+                current_df['block_start'] = current_df.get('block_time', '').str.split(' - ').str[0]
+            if 'block_end' not in current_df.columns:
+                current_df['block_end'] = current_df.get('block_time', '').str.split(' - ').str[1]
+            
             # Gerekli kolonları seç
             edit_df = current_df[['day_of_week', 'block_start', 'block_end', 'target_desc', 'task_type', 'block_type']].copy()
             
