@@ -119,9 +119,18 @@ def show():
                         max_value=60,
                         value=30,
                         step=5,
-                        help="Uzun molalar (her 2 derste bir)",
+                        help="Uzun molalar (her X derste bir)",
                         key="schedule_long_break"
                     )
+                    
+                long_break_interval = st.number_input(
+                    "🍛 Kaç Derste Bir Uzun Mola?",
+                    min_value=1,
+                    max_value=8,
+                    value=2,
+                    help="Örneğin 2 seçerseniz: Ders-Ders-UZUN MOLA-Ders-Ders... şeklinde gider.",
+                    key="schedule_long_break_int"
+                )
             
             # Veli Kontrol Paneli / Ders Ağırlıkları
             with st.expander("⚙️ Ders Ağırlıkları & Öncelikler (Opsiyonel)", expanded=False):
@@ -202,7 +211,8 @@ def show():
                         active_days=active_days,
                         block_duration=int(block_duration),
                         short_break=int(short_break),
-                        long_break=int(long_break)
+                        long_break=int(long_break),
+                        long_break_interval=int(long_break_interval)
                     )
                     # DB'ye kaydet
                     scheduler.save_active_schedule(schedule_data)

@@ -128,18 +128,12 @@ class SchedulerEngine:
 
     def generate_weekly_schedule(self, start_date=None, custom_weights=None, topic_weights=None, 
                                      preserve_manual=True, start_time=None, num_blocks=5, active_days=None,
-                                     block_duration=30, short_break=10, long_break=30):
+                                     block_duration=30, short_break=10, long_break=30, long_break_interval=2):
         """
         Generates a filled schedule for the upcoming week.
         
         Args:
-            start_time: datetime.time object for daily start (e.g., time(15, 0))
-            num_blocks: Number of study blocks per day
-            active_days: List of day names (e.g., ["Monday", "Tuesday"])
-            preserve_manual: If True, do not overwrite blocks manually edited by user.
-            block_duration: Study block duration in minutes
-            short_break: Short break duration in minutes
-            long_break: Long break / meal break duration in minutes
+            long_break_interval: How many blocks before a long break (default 2)
         """
         from datetime import time as dt_time
         
@@ -177,8 +171,11 @@ class SchedulerEngine:
                         "is_completed": False
                     })
                     
-                    # Break (alternating short/long)
-                    break_duration = long_break if (block_num % 2 == 0) else short_break
+                    # Break Calculation
+                    # If this is the Nth block (e.g. 2nd, 4th), use long break
+                    is_long_break = (block_num % long_break_interval == 0)
+                    
+                    break_duration = long_break if is_long_break else short_break
                     break_start = current_time.strftime("%H:%M")
                     current_time += timedelta(minutes=break_duration)
                     break_end = current_time.strftime("%H:%M")
@@ -190,8 +187,8 @@ class SchedulerEngine:
                             "day_of_week": day,
                             "block_start": break_start,
                             "block_end": break_end,
-                            "block_type": "uzun_mola" if break_duration == long_break else "mola",
-                            "task_type": "Mola Zamanı ☕",
+                            "block_type": "uzun_mola" if is_long_break else "mola",
+                            "task_type": "Mola Zamanı ☕" if not is_long_break else "Yemek / Uzun Mola 🍽️",
                             "target_desc": "Dinlen ve yenilen",
                             "is_active": True,
                             "is_completed": False
