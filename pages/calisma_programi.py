@@ -49,8 +49,44 @@ def show():
         else:
             # Giriş Yapılmışsa -> Kontrolleri Göster
             
-            # Veli Kontrol Paneli / Ayarlar
-            with st.expander("⚙️ Program Ayarları & Öncelikler (Veli Kontrol)", expanded=False):
+            # ⏰ ZAMAN AYARLARI (Ayrı ve Görünür Bölüm)
+            with st.expander("⏰ Zaman ve Gün Ayarları", expanded=True):
+                st.caption("Programın başlama saatini ve aktif günlerini buradan ayarlayın.")
+                
+                from datetime import time as dt_time
+                col_time1, col_time2 = st.columns(2)
+                with col_time1:
+                    start_time = st.time_input(
+                        "Günlük Başlangıç Saati", 
+                        value=dt_time(15, 0),
+                        help="Programın her gün hangi saatten başlayacağını belirleyin.",
+                        key="schedule_start_time"
+                    )
+                    
+                with col_time2:
+                    num_blocks = st.number_input(
+                        "Günlük Ders Bloku Sayısı",
+                        min_value=3,
+                        max_value=8,
+                        value=5,
+                        help="Her gün kaç ders bloku (mola hariç) olsun?",
+                        key="schedule_num_blocks"
+                    )
+                
+                all_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+                day_labels = {"Monday": "Pazartesi", "Tuesday": "Salı", "Wednesday": "Çarşamba", 
+                              "Thursday": "Perşembe", "Friday": "Cuma", "Saturday": "Cumartesi", "Sunday": "Pazar"}
+                
+                active_days = st.multiselect(
+                    "📅 Aktif Günler",
+                    options=all_days,
+                    default=all_days,
+                    format_func=lambda x: day_labels.get(x, x),
+                    help="Programın hangi günlerde oluşturulacağını seçin."
+                )
+            
+            # Veli Kontrol Paneli / Ders Ağırlıkları
+            with st.expander("⚙️ Ders Ağırlıkları & Öncelikler (Opsiyonel)", expanded=False):
                 st.markdown("##### 🎯 Haftalık Ders Hedefleri")
                 st.caption("ℹ️ Bu ayarlar **haftalık programın tamamına** uygulanır.")
                 
@@ -114,45 +150,6 @@ def show():
                 else:
                     st.warning("⚠️ Lütfen en az bir ders seçin!")
                 
-                st.markdown("---")
-                st.markdown("##### ⏰ Zaman Ayarları")
-                
-                col_time1, col_time2 = st.columns(2)
-                with col_time1:
-                    # Başlangıç Saati
-                    from datetime import time as dt_time
-                    start_time = st.time_input(
-                        "Günlük Başlangıç Saati", 
-                        value=dt_time(15, 0),  # Varsayılan: 15:00
-                        help="Programın her gün hangi saatten başlayacağını belirleyin.",
-                        key="schedule_start_time"
-                    )
-                    
-                with col_time2:
-                    # Blok Sayısı
-                    num_blocks = st.number_input(
-                        "Günlük Ders Bloku Sayısı",
-                        min_value=3,
-                        max_value=8,
-                        value=5,
-                        help="Her gün kaç ders bloku (mola hariç) olsun?",
-                        key="schedule_num_blocks"
-                    )
-                
-                # Aktif Günler
-                all_days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
-                day_labels = {"Monday": "Pazartesi", "Tuesday": "Salı", "Wednesday": "Çarşamba", 
-                              "Thursday": "Perşembe", "Friday": "Cuma", "Saturday": "Cumartesi", "Sunday": "Pazar"}
-                
-                active_days = st.multiselect(
-                    "📅 Aktif Günler",
-                    options=all_days,
-                    default=all_days,  # Varsayılan: Hepsi
-                    format_func=lambda x: day_labels.get(x, x),
-                    help="Programın hangi günlerde oluşturulacağını seçin."
-                )
-                
-                st.markdown("---")
                 preserve_manual = st.checkbox("🔒 Manuel Ayarlanan Dersleri Koru", value=True, help="Eğer işaretli ise, elle değiştirdiğiniz bloklara (Örn: Özel Ders) dokunulmaz.")
             
             # Akıllı Program Oluştur Butonu
