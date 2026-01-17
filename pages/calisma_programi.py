@@ -262,8 +262,8 @@ def show():
                 num_rows="fixed",
                 column_config={
                     "day_of_week": st.column_config.TextColumn("Gün", disabled=True),
-                    "block_start": st.column_config.TextColumn("Başlangıç", disabled=True),
-                    "block_end": st.column_config.TextColumn("Bitiş", disabled=True),
+                    "block_start": st.column_config.TextColumn("Başlangıç (SS:DD)", disabled=False, help="Örn: 14:30"),
+                    "block_end": st.column_config.TextColumn("Bitiş (SS:DD)", disabled=False, help="Örn: 15:00"),
                     
                     "task_type": st.column_config.SelectboxColumn(
                         "Ders (Seçmeli)",
@@ -288,15 +288,74 @@ def show():
                 key="schedule_editor"
             )
             
+            cascade_updates = st.checkbox("⏳ Saatleri Zincirleme Güncelle", value=False, help="Bir dersin saatini değiştirdiğinizde, sonraki derslerin saatlerini otomatik olarak kaydırır (süreleri koruyarak).")
+            
             if st.button("💾 Değişiklikleri Kaydet"):
                 # Orijinal veriyi güncelle
                 new_schedule = st.session_state['generated_schedule']
+                
+                # Zincirleme Güncelleme Mantığı (Opsiyonel)
+                if cascade_updates:
+                    from datetime import datetime, timedelta
+                    
+                    # Gün bazında gruplayıp işle
+                    edited_df['day_sort'] = pd.Categorical(edited_df['day_of_week'], categories=all_days, ordered=True)
+                    edited_df = edited_df.sort_values(['day_sort', 'block_start'])
+                    
+                    # Her gün için ayrı işlem yap
+                    for day in all_days:
+                        day_mask = edited_df['day_of_week'] == day
+                        if not day_mask.any():
+                            continue
+                            
+                        day_indices = edited_df[day_mask].index
+                        
+                        # İlk bloğun başlangıç zamanını referans al
+                        # Sonraki bloklar: Önceki Bitiş -> Yeni Başlangıç
+                        prev_end_time = None
+                        
+                        for idx in day_indices:
+                            row = edited_df.loc[idx]
+                            
+                            current_start_str = row['block_start']
+                            current_end_str = row['block_end']
+                            
+                            try:
+                                # Süreyi hesapla (Mevcut satırın süresini koru)
+                                t_fmt = "%H:%M"
+                                t_start = datetime.strptime(current_start_str, t_fmt)
+                                t_end = datetime.strptime(current_end_str, t_fmt)
+                                duration = (t_end - t_start).total_seconds() / 60
+                                
+                                if prev_end_time:
+                                    # Başlangıcı önceki bitişe eşitle (Zincirleme)
+                                    new_start = prev_end_time
+                                    new_end = new_start + timedelta(minutes=duration)
+                                    
+                                    # DataFrame'i güncelle
+                                    edited_df.at[idx, 'block_start'] = new_start.strftime(t_fmt)
+                                    edited_df.at[idx, 'block_end'] = new_end.strftime(t_fmt)
+                                    
+                                    prev_end_time = new_end
+                                else:
+                                    # İlk blok - Bitiş zamanını referans olarak sakla
+                                    prev_end_time = t_end
+                                    
+                            except Exception as e:
+                                print(f"Time Calc Error: {e}")
+                                continue
+
+                # Güncellenmiş DataFrame'i kaydet
                 for idx, row in edited_df.iterrows():
                     new_schedule[idx]['target_desc'] = row['target_desc']
                     new_schedule[idx]['task_type'] = row['task_type']
                     new_schedule[idx]['block_type'] = row['block_type']
+                    # Saatleri de güncelle
+                    new_schedule[idx]['block_start'] = row['block_start']
+                    new_schedule[idx]['block_end'] = row['block_end']
                     
                 st.session_state['generated_schedule'] = new_schedule
+                
                 
                 # DB'ye kaydet
                 scheduler.save_active_schedule(new_schedule)
