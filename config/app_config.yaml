@@ -44,8 +44,8 @@ ai:
   models:
     text:
       primary: "gemini-3-flash-preview"
-      fallback_1: "gemini-2.5-flash"
-      fallback_2: "gemini-2.0-flash-exp"
+      # Fallback models removed as per user request. 
+      # System will rotate keys instead of degrading models.
     
     tts: "gemini-2.5-flash-tts"
     audio_dialog: "gemini-3-flash-native-audio-dialog"

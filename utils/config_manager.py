@@ -108,6 +108,11 @@ class UnifiedConfigManager:
             if secondary and not any(k.key == secondary for k in keys):
                 keys.append(APIKeyInfo(key=secondary, name="secrets_secondary"))
                 
+            # Tertiary key (fallback 2)
+            tertiary = gemini_secrets.get("api_key_tertiary")
+            if tertiary and not any(k.key == tertiary for k in keys):
+                keys.append(APIKeyInfo(key=tertiary, name="secrets_tertiary"))
+                
         except Exception:
             pass
         
@@ -128,6 +133,11 @@ class UnifiedConfigManager:
                     user_key_secondary = settings.get("chat_api_key_secondary")
                     if user_key_secondary and not any(k.key == user_key_secondary for k in keys):
                         keys.append(APIKeyInfo(key=user_key_secondary, name="ayarlar_secondary"))
+                        
+                    # Tertiary key from user settings
+                    user_key_tertiary = settings.get("chat_api_key_tertiary")
+                    if user_key_tertiary and not any(k.key == user_key_tertiary for k in keys):
+                        keys.append(APIKeyInfo(key=user_key_tertiary, name="ayarlar_tertiary"))
         except Exception:
             pass
         
