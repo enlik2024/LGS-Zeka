@@ -408,64 +408,91 @@ class GeminiHelper:
         }
         
         # Model cascade listesi
-        model_cascade = self._config.get_model_cascade()
-        last_error = None
         
-        for model_idx, model_name in enumerate(model_cascade):
-            try:
-                with st.spinner(f"🤖 AI analiz ediyor ({model_name})..."):
-                    # Model al veya oluştur
-                    if model_name not in self._models:
-                        self._models[model_name] = genai.GenerativeModel(model_name=model_name)
+        max_key_retries = 3
+        key_retry_count = 0
+        
+        while key_retry_count < max_key_retries:
+            model_cascade = self._config.get_model_cascade()
+            last_error = None
+            key_rotated = False
+            
+            for model_idx, model_name in enumerate(model_cascade):
+                try:
+                    with st.spinner(f"🤖 AI analiz ediyor ({model_name})..."):
+                        # Model al veya oluştur
+                        if model_name not in self._models:
+                            self._models[model_name] = genai.GenerativeModel(model_name=model_name)
+                        
+                        model = self._models[model_name]
+                        
+                        response = model.generate_content(
+                            [prompt, image],
+                            generation_config=explicit_config,
+                            safety_settings=safety_settings
+                        )
+                        
+                        # Güvenli metin alımı
+                        response_text = self._get_safe_response_text(response)
+                        
+                        # JSON parse
+                        result = self._parse_json_response(response_text)
+                        
+                        # Metadata ekle
+                        result["model_used"] = model_name
+                        result["timestamp"] = st.session_state.get("current_time", "")
+                        
+                        return result
+                        
+                except (exceptions.ResourceExhausted, exceptions.ServiceUnavailable) as e:
+                    reason = "Kota Doldu"
+                    last_error = e
+                    print(f"⚠️ {reason}: {model_name} ({type(e).__name__})")
                     
-                    model = self._models[model_name]
+                    if model_idx < len(model_cascade) - 1:
+                        next_model = model_cascade[model_idx + 1]
+                        st.toast(f"🔄 {reason}: {model_name} → {next_model}", icon="🔀")
+                        continue
+                    else:
+                        # Bu anahtar için tüm modeller tükendi
+                        st.error(f"⚠️ Bu API anahtarı için tüm modellerin kotası doldu.")
+                        
+                        # API Key Rotasyonu
+                        if self._config.mark_key_quota_exceeded():
+                            new_key = self._config.get_active_api_key()
+                            if new_key:
+                                self.api_key = new_key
+                                self._configure_api()
+                                self._models = {}
+                                st.toast(f"🔑 Yeni API Anahtarına Geçiliyor...", icon="🔄")
+                                key_rotated = True
+                                break # For döngüsünü kır, While döngüsü başa dönecek
+                        
+                        st.error("❌ Yedek API anahtarı kalmadı.")
+                        
+                except (exceptions.NotFound, exceptions.InvalidArgument) as e:
+                    reason = "Model Bulunamadı"
+                    last_error = e
+                    print(f"⚠️ {reason}: {model_name} ({type(e).__name__})")
                     
-                    response = model.generate_content(
-                        [prompt, image],
-                        generation_config=explicit_config,
-                        safety_settings=safety_settings
-                    )
-                    
-                    # Güvenli metin alımı
-                    response_text = self._get_safe_response_text(response)
-                    
-                    # JSON parse
-                    result = self._parse_json_response(response_text)
-                    
-                    # Metadata ekle
-                    result["model_used"] = model_name
-                    result["timestamp"] = st.session_state.get("current_time", "")
-                    
-                    return result
-                    
-            except (exceptions.ResourceExhausted, exceptions.ServiceUnavailable) as e:
-                reason = "Kota Doldu"
-                last_error = e
-                print(f"⚠️ {reason}: {model_name} ({type(e).__name__})")
-                
-                if model_idx < len(model_cascade) - 1:
-                    next_model = model_cascade[model_idx + 1]
-                    st.toast(f"🔄 {reason}: {model_name} → {next_model}", icon="🔀")
-                    continue
-                else:
-                    st.error(f"⚠️ Tüm modellerin kotası doldu.")
-                    
-            except (exceptions.NotFound, exceptions.InvalidArgument) as e:
-                reason = "Model Bulunamadı"
-                last_error = e
-                print(f"⚠️ {reason}: {model_name} ({type(e).__name__})")
-                
-                if model_idx < len(model_cascade) - 1:
-                    next_model = model_cascade[model_idx + 1]
-                    st.toast(f"🔄 {reason}: {model_name} → {next_model}", icon="🔀")
-                    continue
-                else:
-                    st.error(f"⚠️ Model bulunamadı ve fallback kalmadı.")
+                    if model_idx < len(model_cascade) - 1:
+                        next_model = model_cascade[model_idx + 1]
+                        st.toast(f"🔄 {reason}: {model_name} → {next_model}", icon="🔀")
+                        continue
+                    else:
+                        st.error(f"⚠️ Model bulunamadı ve fallback kalmadı.")
 
-            except Exception as e:
-                last_error = e
-                st.error(f"Soru analizi hatası: {str(e)}")
-                break
+                except Exception as e:
+                    last_error = e
+                    st.error(f"Soru analizi hatası: {str(e)}")
+                    break # Kritik hata, döngüden çık
+            
+            # For döngüsü bitti
+            if key_rotated:
+                key_retry_count += 1
+                continue # While döngüsüne devam (Yeni key ile)
+            else:
+                break # Key rotasyonu olmadıysa işlem bitmiştir (başarılı veya başarısız)
         
         # Hata durumu
         return {
@@ -486,91 +513,146 @@ class GeminiHelper:
         Enterprise: JSON Mode ile garantili geçerli JSON çıktısı.
         """
         try:
-            image = self._prepare_image(image_input)
-            model = self._get_model(model_type)
-            prompt = self.BATCH_ANALYSIS_PROMPT
+        image = self._prepare_image(image_input)
             
-            with st.spinner(f"🚀 Toplu Analiz Yapılıyor ({model_type})..."):
-                # ENTERPRISE: JSON Mode - API geçerli JSON döndürmeye zorlanır
-                generation_config = {
-                    "max_output_tokens": 8192,
-                    "temperature": 0.2,
-                    "response_mime_type": "application/json"  # JSON MODE
-                }
-                
-                response = model.generate_content(
-                    [prompt, image],
-                    generation_config=generation_config
-                )
-                response_text = self._get_safe_response_text(response)
-                
-                # JSON Mode ile gelen yanıt doğrudan parse edilebilir
+        max_key_retries = 3
+        key_retry_count = 0
+        
+        while key_retry_count < max_key_retries:
+            model_cascade = self._config.get_model_cascade()
+            key_rotated = False
+            last_error = None
+            
+            for model_idx, model_name in enumerate(model_cascade):
                 try:
-                    results = json.loads(response_text)
-                except json.JSONDecodeError as e:
-                    # Token Limit nedeniyle kesilme veya bozuk JSON durumu
-                    # Kullanıcıyı korkutmamak için warning yerine toast kullanıyoruz
-                    st.toast("Veri işleniyor... (Otomatik Düzeltme Devrede)", icon="🔧")
-                    print(f"DEBUG: JSON Fix triggered: {e}")
-                    
-                    text = response_text.strip()
-                    results = None
-                    
-                    # Kurtarma Senaryosu 1: Liste açılmış ([) ama kapanmamış
-                    if text.startswith("["):
-                        # Sondan geriye doğru son bitmiş objeyi "}," ile arayalım
-                        last_clean_end = text.rfind("},")
-                        if last_clean_end != -1:
-                            # Kesilen yere kadar al ve listeyi kapat
-                            fixed_text = text[:last_clean_end+1] + "]"
-                            try:
-                                results = json.loads(fixed_text)
-                                st.toast(f"✅ {len(results)} soru başarıyla analiz edildi!", icon="✨")
-                            except:
-                                pass
+                    with st.spinner(f"🚀 Toplu Analiz Yapılıyor ({model_name})..."):
+                        # Model al veya oluştur
+                        if model_name not in self._models:
+                            self._models[model_name] = genai.GenerativeModel(model_name=model_name)
+                        model = self._models[model_name]
                         
-                        # Eğer yukarıdaki çalışmadıysa, belki tek bir obje vardır ve "}" ile bitiyordur ama "]" yoktur
-                        if not results:
-                            last_brace = text.rfind("}")
-                            if last_brace != -1:
-                                fixed_text = text[:last_brace+1] + "]"
-                                try:
-                                    results = json.loads(fixed_text)
-                                    st.toast("✅ Analiz tamamlandı.", icon="✨")
-                                except:
-                                    pass
+                        prompt = self.BATCH_ANALYSIS_PROMPT
+                        
+                        # ENTERPRISE: JSON Mode - API geçerli JSON döndürmeye zorlanır
+                        generation_config = {
+                            "max_output_tokens": 8192,
+                            "temperature": 0.2,
+                            "response_mime_type": "application/json"  # JSON MODE
+                        }
+                        
+                        response = model.generate_content(
+                            [prompt, image],
+                            generation_config=generation_config
+                        )
+                        response_text = self._get_safe_response_text(response)
+                        
+                        # JSON Mode ile gelen yanıt doğrudan parse edilebilir
+                        try:
+                            results = json.loads(response_text)
+                        except json.JSONDecodeError as e:
+                            # Token Limit nedeniyle kesilme veya bozuk JSON durumu
+                            # Kullanıcıyı korkutmamak için warning yerine toast kullanıyoruz
+                            st.toast("Veri işleniyor... (Otomatik Düzeltme Devrede)", icon="🔧")
+                            print(f"DEBUG: JSON Fix triggered: {e}")
+                            
+                            text = response_text.strip()
+                            results = None
+                            
+                            # Kurtarma Senaryosu 1: Liste açılmış ([) ama kapanmamış
+                            if text.startswith("["):
+                                # Sondan geriye doğru son bitmiş objeyi "}," ile arayalım
+                                last_clean_end = text.rfind("},")
+                                if last_clean_end != -1:
+                                    # Kesilen yere kadar al ve listeyi kapat
+                                    fixed_text = text[:last_clean_end+1] + "]"
+                                    try:
+                                        results = json.loads(fixed_text)
+                                        st.toast(f"✅ {len(results)} soru başarıyla analiz edildi!", icon="✨")
+                                    except:
+                                        pass
+                                
+                                # Eğer yukarıdaki çalışmadıysa, belki tek bir obje vardır ve "}" ile bitiyordur ama "]" yoktur
+                                if not results:
+                                    last_brace = text.rfind("}")
+                                    if last_brace != -1:
+                                        fixed_text = text[:last_brace+1] + "]"
+                                        try:
+                                            results = json.loads(fixed_text)
+                                            st.toast("✅ Analiz tamamlandı.", icon="✨")
+                                        except:
+                                            pass
+        
+                            # Kurtarma Senaryosu 2: Halen başarısızsak ve veri yoksa
+                            if not results:
+                                st.error("JSON kurtarılamadı -> Fallback yapılacak.")
+                                # JSON hatası model hatası değildir, o yüzden return ediyoruz
+                                return [{
+                                    "error": f"JSON Parse Error: {str(e)}",
+                                    "konu": "Hata",
+                                    "soru_metni": "AI yanıtı kesildi",
+                                    "ham_yanit": response_text
+                                }]
+                        
+                        # Sonuç işleme
+                        if isinstance(results, list):
+                            import datetime as dt_module
+                            for res in results:
+                                res['model_used'] = model_name
+                                res['timestamp'] = dt_module.datetime.now().isoformat()
+                                if 'cozum_adimlari' not in res: res['cozum_adimlari'] = []
+                                if 'konu' not in res: res['konu'] = "Genel"
+                                if 'soru_metni' not in res: res['soru_metni'] = "Metin okunamadı"
+                            return results
+                        elif isinstance(results, dict):
+                            import datetime as dt_module
+                            results['model_used'] = model_name
+                            results['timestamp'] = dt_module.datetime.now().isoformat()
+                            return [results]
+                        else:
+                            return [{"error": "Beklenmeyen format", "ham_yanit": response_text}]
 
-                    # Kurtarma Senaryosu 2: Halen başarısızsak ve veri yoksa
-                    if not results:
-                        st.error("JSON kurtarılamadı -> Fallback yapılacak.")
-                        return [{
-                            "error": f"JSON Parse Error: {str(e)}",
-                            "konu": "Hata",
-                            "soru_metni": "AI yanıtı kesildi",
-                            "ham_yanit": response_text
-                        }]
-                
-                # Sonuç işleme
-                if isinstance(results, list):
-                    import datetime as dt_module
-                    for res in results:
-                        res['model_used'] = model_type
-                        res['timestamp'] = dt_module.datetime.now().isoformat()
-                        if 'cozum_adimlari' not in res: res['cozum_adimlari'] = []
-                        if 'konu' not in res: res['konu'] = "Genel"
-                        if 'soru_metni' not in res: res['soru_metni'] = "Metin okunamadı"
-                    return results
-                elif isinstance(results, dict):
-                    import datetime as dt_module
-                    results['model_used'] = model_type
-                    results['timestamp'] = dt_module.datetime.now().isoformat()
-                    return [results]
-                else:
-                    return [{"error": "Beklenmeyen format", "ham_yanit": response_text}]
+                except (exceptions.ResourceExhausted, exceptions.ServiceUnavailable) as e:
+                    reason = "Kota Doldu"
+                    last_error = e
+                    print(f"⚠️ {reason}: {model_name} ({type(e).__name__})")
                     
-        except Exception as e:
-            st.error(f"Batch analiz hatası: {str(e)}")
-            return [{"error": str(e), "konu": "Hata"}]
+                    if model_idx < len(model_cascade) - 1:
+                        next_model = model_cascade[model_idx + 1]
+                        st.toast(f"🔄 {reason}: {model_name} → {next_model}", icon="🔀")
+                        continue
+                    else:
+                        st.error(f"⚠️ Bu API anahtarı için tüm modellerin kotası doldu.")
+                        
+                        if self._config.mark_key_quota_exceeded():
+                            new_key = self._config.get_active_api_key()
+                            if new_key:
+                                self.api_key = new_key
+                                self._configure_api()
+                                self._models = {}
+                                st.toast(f"🔑 Yeni API Anahtarına Geçiliyor...", icon="🔄")
+                                key_rotated = True
+                                break 
+                        
+                        st.error("❌ Yedek API anahtarı kalmadı.")
+
+                except Exception as e:
+                    st.error(f"Batch analiz hatası ({model_name}): {str(e)}")
+                    last_error = e
+                    # Diğer modelleri dene (Opsiyonel: Kritik hataysa break, ama batch analizde model değiştirmek işe yarayabilir)
+                    if model_idx < len(model_cascade) - 1:
+                        next_model = model_cascade[model_idx + 1]
+                        st.toast(f"🔄 Hata sonrası model değişiyor: {model_name} → {next_model}", icon="⚠️")
+                        continue
+                    else:
+                        break
+
+            if key_rotated:
+                key_retry_count += 1
+                continue
+            else:
+                break
+        
+        return [{"error": str(last_error) if last_error else "Bilinmeyen hata", "konu": "Hata"}]
 
     def generate_study_plan(
         self,
