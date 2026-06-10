@@ -332,7 +332,8 @@ Bu dokümanlar `prompts/` klasöründeki Python dosyalarında kullanılan format
 
 | Servis | Kullanım Amacı | Zorunlu? |
 |--------|----------------|----------|
-| Google Gemini AI | Soru analizi, sohbet, içerik üretimi, Sokratik ders | Hayır (AI özellikleri için gerekli) |
+| OpenAI GPT | AI sohbet, soru analizi, içerik üretimi (henüz implementasyonu yapılmadı, README'deki kılavuza bakın) | Hayır |
+| Google Gemini AI | Soru analizi, sohbet, içerik üretimi, Sokratik ders (şu an aktif sağlayıcı) | Hayır (AI özellikleri için gerekli) |
 | Supabase | PostgreSQL veritabanı (kalıcı kayıt) | Hayır (CSV yeterli) |
 | Google Sheets | Alternatif veritabanı | Hayır |
 | Perplexity API | Beta "Critic" doğrulama modu | Hayır (opsiyonel) |
