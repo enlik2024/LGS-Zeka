@@ -321,4 +321,4 @@ pytest tests/
 
 ## Lisans
 
-Bu proje özel bir lisans altındadır.
+MIT License. Detaylı bilgi için [LICENSE](LICENSE) dosyasına bakın.
