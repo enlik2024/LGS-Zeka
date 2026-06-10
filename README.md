@@ -162,6 +162,38 @@ api_key = "AIzaSy..."  # Google AI Studio'dan alın
 
 API anahtarı olmadan Soru Analizi ve AI Koç sayfaları hata mesajı gösterir, uygulamanın geri kalanı etkilenmez.
 
+### OpenAI / GPT ile Çalıştırma
+
+Sistem sadece Gemini'ye bağlı değildir. `utils/llm_adapter.py` katmanı sayesinde OpenAI (GPT-4, GPT-4o) ve diğer LLM sağlayıcılarına geçiş için hazır altyapı vardır.
+
+**Mevcut durum:** `LLMAdapter` sınıfı `provider="gemini"` parametresi ile çalışır. OpenAI desteği eklemek için:
+
+1. `utils/openai_helper.py` oluşturun — OpenAI API'yi sarmalayan sınıf (GeminiHelper ile aynı arayüzde)
+2. `utils/llm_adapter.py` içinde `if self.provider == "openai"` dallarını ekleyin
+3. `utils/config_manager.py` içinde OpenAI API anahtarı yükleme mantığını ekleyin
+4. `.streamlit/secrets.toml.example` dosyasına OpenAI bölümünü ekleyin:
+
+```toml
+[openai]
+api_key = "sk-proj-..."            # OpenAI API anahtarı
+api_key_secondary = "sk-proj-..."  # Yedek (opsiyonel)
+model = "gpt-4o"                   # Varsayılan model
+```
+
+Kod yapısı:
+
+```
+utils/
+├── gemini_helper.py      # Mevcut: Gemini API sarmalayıcı
+├── openai_helper.py      # Eklenecek: OpenAI API sarmalayıcı
+├── llm_adapter.py        # Mevcut: soyutlama katmanı (provider seçimi)
+└── config_manager.py     # Mevcut: API anahtarı yönetimi (provider bazlı)
+```
+
+`LLMAdapter`'daki her metod (`generate_json`, `chat`, `vision_analyze` vb.) `if provider == "gemini"` / `elif provider == "openai"` şeklinde dallanmıştır. Yeni bir provider eklemek için her metoda yeni bir `elif` dalı ve ilgili implementasyonu eklemeniz yeterlidir.
+
+Perplexity API (beta "Critic" modu) ise sağlayıcıdan bağımsız çalışır — doğrudan `requests` ile API'yi çağırır.
+
 ---
 
 ## Secrets Yapılandırması
