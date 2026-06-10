@@ -196,6 +196,128 @@ def show():
                 </div>
                 """, unsafe_allow_html=True)
             
+            # NotebookLM İçerikleri (Video, Infografik vs.)
+            if content.get('source') == 'notebooklm':
+                st.markdown("---")
+                st.markdown("### 🎬 NotebookLM İçerikleri")
+                st.caption("Aşağıdaki içeriklere tıklayarak açabilirsin.")
+                
+                # Tüm içerikleri getir
+                try:
+                    from utils.db_manager import get_db_manager
+                    import json as json_lib
+                    db = get_db_manager()
+                    
+                    if db.db_type == "supabase" and db._client:
+                        # Kazanım ID'sini bul
+                        kaz_result = db._client.table('meb_kazanimlar').select('kazanim_id').eq('ders', lesson).eq('curriculum_map_subtopic', subtopic).limit(1).execute()
+                        
+                        if kaz_result.data:
+                            kazanim_id = kaz_result.data[0]['kazanim_id']
+                            # Tüm içerikleri getir
+                            icerik_result = db._client.table('icerikler').select('*').eq('kazanim_id', kazanim_id).eq('status', 'approved').execute()
+                            
+                            if icerik_result.data:
+                                for icerik in icerik_result.data:
+                                    tip = icerik.get('icerik_tipi', 'guide')
+                                    baslik = icerik.get('baslik', 'İçerik')
+                                    
+                                    # İçerik tipine göre ikon
+                                    tip_ikonlar = {
+                                        'video': '🎬', 'guide': '📝', 'quiz': '❓',
+                                        'flashcard': '🃏', 'infographic': '📊', 'audio': '🎧'
+                                    }
+                                    ikon = tip_ikonlar.get(tip, '📄')
+                                    
+                                    # ========== VIDEO ==========
+                                    if tip == 'video':
+                                        with st.expander(f"{ikon} Video: {baslik}", expanded=False):
+                                            video_url = icerik.get('video_url')
+                                            if video_url:
+                                                st.video(video_url)
+                                            else:
+                                                st.warning("Video bağlantısı bulunamadı.")
+                                            
+                                            notebook_url = icerik.get('notebook_url')
+                                            if notebook_url:
+                                                st.link_button("📄 NotebookLM Kaynağına Git", notebook_url)
+                                    
+                                    # ========== QUIZ ==========
+                                    elif tip == 'quiz':
+                                        with st.expander(f"{ikon} Quiz: {baslik}", expanded=False):
+                                            quiz_json = icerik.get('icerik_json')
+                                            if quiz_json:
+                                                try:
+                                                    quiz_data = json_lib.loads(quiz_json) if isinstance(quiz_json, str) else quiz_json
+                                                    questions = quiz_data.get('questions', [])
+                                                    
+                                                    if questions:
+                                                        st.markdown(f"**Toplam {len(questions)} soru**")
+                                                        
+                                                        for q in questions:
+                                                            st.markdown(f"**Soru {q['id']}:** {q['question']}")
+                                                            options = q.get('options', {})
+                                                            
+                                                            selected = st.radio(
+                                                                "Cevabınız:", 
+                                                                options=[f"{k}) {v}" for k, v in options.items()],
+                                                                key=f"quiz_{icerik.get('icerik_id')}_{q['id']}",
+                                                                label_visibility="collapsed"
+                                                            )
+                                                            
+                                                            if st.button(f"Cevabı Kontrol Et", key=f"check_{icerik.get('icerik_id')}_{q['id']}"):
+                                                                correct = q.get('correct_answer', '')
+                                                                if selected and selected.startswith(correct):
+                                                                    st.success(f"✅ Doğru! {q.get('explanation', '')}")
+                                                                else:
+                                                                    st.error(f"❌ Yanlış. Doğru cevap: {correct}. {q.get('explanation', '')}")
+                                                            st.markdown("---")
+                                                    else:
+                                                        st.info("Quiz soruları bulunamadı.")
+                                                except Exception as qe:
+                                                    st.warning(f"Quiz parse hatası: {qe}")
+                                            else:
+                                                st.info("Quiz verileri henüz yüklenmedi.")
+                                    
+                                    # ========== FLASHCARD ==========
+                                    elif tip == 'flashcard':
+                                        with st.expander(f"{ikon} Flashcard: {baslik}", expanded=False):
+                                            st.markdown("Bilgi kartlarını çalışmak için **Bilgi Kartları** sekmesine git.")
+                                            if st.button("🃏 Kartlara Git", key=f"goto_flash_{icerik.get('icerik_id')}"):
+                                                st.session_state[f"active_tab_{lesson}_{topic}_{subtopic}"] = "🃏 Bilgi Kartları"
+                                                st.rerun()
+                                    
+                                    # ========== INFOGRAPHIC ==========
+                                    elif tip == 'infographic':
+                                        with st.expander(f"{ikon} İnfografik: {baslik}", expanded=False):
+                                            image_path = icerik.get('image_path')
+                                            if image_path:
+                                                try:
+                                                    st.image(image_path, caption=baslik, use_container_width=True)
+                                                except Exception as ie:
+                                                    st.warning(f"Görsel yüklenemedi: {ie}")
+                                            else:
+                                                st.info("İnfografik görseli henüz yüklenmedi.")
+                                    
+                                    # ========== GUIDE / OTHER ==========
+                                    else:
+                                        with st.expander(f"{ikon} Rehber: {baslik}", expanded=False):
+                                            guide_json = icerik.get('icerik_json')
+                                            if guide_json:
+                                                try:
+                                                    guide_data = json_lib.loads(guide_json) if isinstance(guide_json, str) else guide_json
+                                                    st.markdown(guide_data.get('content', 'İçerik bulunamadı.'))
+                                                except:
+                                                    st.markdown(str(guide_json))
+                                            else:
+                                                notebook_url = icerik.get('notebook_url')
+                                                if notebook_url:
+                                                    st.markdown(f"[NotebookLM'de Aç]({notebook_url})")
+                                                else:
+                                                    st.info("Rehber içeriği henüz yüklenmedi.")
+                except Exception as e:
+                    print(f"NotebookLM content error: {e}")
+            
             # Mini Check (Sadece varsa göster)
             check_q = content.get('mini_check_question')
             check_a = content.get('mini_check_answer')

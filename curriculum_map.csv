@@ -1,16 +1,78 @@
 lesson,topic,subtopic,importance_weight,active
-Matematik,Çarpanlar ve Katlar,EBOB-EKOK Problemleri,5,True
-Matematik,Üslü İfadeler,Üslü İfadeler ve İşlemler,5,True
-Matematik,Kareköklü İfadeler,Gerçek Yaşam Problemleri,5,True
-Matematik,Veri Analizi,Grafik Türleri ve Yorumlama,4,True
-Matematik,Basit Olayların Olma Olasılığı,Olasılık Hesaplama,3,True
-Matematik,Cebirsel İfadeler,Özdeşlikler ve Modelleme,4,True
-Matematik,Doğrusal Denklemler,Denklem Kurma ve Çözme,5,True
-Matematik,Eşitsizlikler,Birinci Dereceden Eşitsizlikler,4,True
-Matematik,Üçgenler,Üçgenin Yardımcı Elemanları ve Eşitsizliği,4,True
-Matematik,Eşlik ve Benzerlik,Eşlik ve Benzerlik Oranı,4,True
-Matematik,Dönüşüm Geometrisi,Yansıma Öteleme Dönme,3,True
-Matematik,Geometrik Cisimler,Prizma Silindir Piramit Koni,4,True
+Matematik,Çarpanlar ve Katlar,Pozitif Tam Sayıların Pozitif Tam Sayı Çarpanları,4,True
+Matematik,Çarpanlar ve Katlar,En Küçük Ortak Kat (EKOK),5,True
+Matematik,Çarpanlar ve Katlar,En Büyük Ortak Bölen (EBOB),5,True
+Matematik,Çarpanlar ve Katlar,Aralarında Asal Sayılar,4,True
+Matematik,Üslü İfadeler,Tam Sayıların Tam Sayı Kuvvetleri,4,True
+Matematik,Üslü İfadeler,Üssün Üssünü Alma,4,True
+Matematik,Üslü İfadeler,Üslü İfadelerde Sıralama,3,True
+Matematik,Üslü İfadeler,Üslü İfadelerde Çarpma İşlemi,4,True
+Matematik,Üslü İfadeler,Üslü İfadelerde Bölme İşlemi,4,True
+Matematik,Üslü İfadeler,Ondalık Gösterimlerin Çözümlenmesi,3,True
+Matematik,Üslü İfadeler,Sayıları 10'un Farklı Tam Sayı Kuvvetlerini Kullanarak Yazma,3,True
+Matematik,Üslü İfadeler,Çok Büyük ve Çok Küçük Sayıların Bilimsel Gösterimi,4,True
+Matematik,Kareköklü İfadeler,Tam Kare Pozitif Tam Sayılar ve Bu Sayıların Karekökleri,5,True
+Matematik,Kareköklü İfadeler,Tam Kare Olmayan Pozitif Tam Sayıların Karekökleri,5,True
+Matematik,Kareköklü İfadeler,Kareköklü Bir İfadeyi a√b Şeklinde Yazma,5,True
+Matematik,Kareköklü İfadeler,a√b Şeklindeki İfadede Katsayıyı Kök İçine Alma,4,True
+Matematik,Kareköklü İfadeler,Kareköklü İfadelerde Çarpma İşlemi,5,True
+Matematik,Kareköklü İfadeler,Kareköklü İfadelerde Bölme İşlemi,5,True
+Matematik,Kareköklü İfadeler,Kareköklü Bir İfade ile Çarpıldığında Sonucu Doğal Sayı Yapan Çarpanlar,4,True
+Matematik,Kareköklü İfadeler,Kareköklü İfadelerde Toplama ve Çıkarma İşlemi,5,True
+Matematik,Kareköklü İfadeler,Ondalık İfadelerin Karekökleri,4,True
+Matematik,Kareköklü İfadeler,Gerçek Sayılar,5,True
+Matematik,Veri Analizi,Çizgi Grafiği,3,True
+Matematik,Veri Analizi,Sütun Grafiği,3,True
+Matematik,Veri Analizi,Daire Grafiği,3,True
+Matematik,Veri Analizi,Verileri Uygun Grafikle Gösterme ve Grafikler Arası Dönüşüm Yapma,4,True
+Matematik,Olasılık,Olasılıkla İlgili Kavramlar,3,True
+Matematik,Olasılık,Olası Durumları Belirleme,3,True
+Matematik,Olasılık,Olası Durumları Karşılaştırma,3,True
+Matematik,Olasılık,Olasılık Değeri,4,True
+Matematik,Olasılık,Kesin Olay ve İmkânsız Olay,3,True
+Matematik,Olasılık,Bir Olayın Olma Olasılığı,4,True
+Matematik,Cebirsel İfadeler,Cebirsel İfadeler,5,True
+Matematik,Cebirsel İfadeler,Basit Cebirsel İfadeleri Farklı Biçimlerde Yazma,4,True
+Matematik,Cebirsel İfadeler,Cebirsel İfadelerin Çarpımı,5,True
+Matematik,Cebirsel İfadeler,Özdeşlikler,5,True
+Matematik,Cebirsel İfadeler,Cebirsel İfadeleri Çarpanlarına Ayırma,5,True
+Matematik,Doğrusal Denklemler,Birinci Dereceden Bir Bilinmeyenli Denklemler,5,True
+Matematik,Doğrusal Denklemler,Katsayıları Rasyonel Sayı Olan Denklemleri Çözme,5,True
+Matematik,Doğrusal Denklemler,Koordinat Sistemi ve Sıralı İkililer,4,True
+Matematik,Doğrusal Denklemler,Koordinat Sisteminin Bölgeleri,3,True
+Matematik,Doğrusal Denklemler,Doğrusal İlişkiler,4,True
+Matematik,Doğrusal Denklemler,Eksenlere Paralel Doğruların Grafikleri,3,True
+Matematik,Doğrusal Denklemler,Orijinden Geçen Doğruların Grafikleri,4,True
+Matematik,Doğrusal Denklemler,Eksenleri Kesen Doğruların Grafikleri,4,True
+Matematik,Doğrusal Denklemler,Doğrusal İlişki İçeren Gerçek Hayat Durumları,4,True
+Matematik,Doğrusal Denklemler,Doğrunun Eğimi,5,True
+Matematik,Doğrusal Denklemler,Koordinat Sisteminde Eğim,4,True
+Matematik,Eşitsizlikler,Birinci Dereceden Bir Bilinmeyenli Eşitsizlikleri Yazma,4,True
+Matematik,Eşitsizlikler,Birinci Dereceden Bir Bilinmeyenli Eşitsizlikleri Sayı Doğrusunda Gösterme,4,True
+Matematik,Eşitsizlikler,Birinci Dereceden Bir Bilinmeyenli Eşitsizlikleri Çözme,5,True
+Matematik,Üçgenler,Üçgende Kenarortay,4,True
+Matematik,Üçgenler,Açıortay,4,True
+Matematik,Üçgenler,Yükseklik,4,True
+Matematik,Üçgenler,Özel Üçgenler,4,True
+Matematik,Üçgenler,Üçgenlerin Kenarları Arasındaki İlişkiler,4,True
+Matematik,Üçgenler,Üçgenin Açı ve Kenarları Arasındaki İlişkiler,4,True
+Matematik,Üçgenler,Üçgen Çizimleri,3,True
+Matematik,Üçgenler,Pisagor Bağıntısı,5,True
+Matematik,Üçgenler,Dik Koordinat Sisteminde Pisagor Bağıntısı,4,True
+Matematik,Üçgenler,Kenarlarına Göre Özel Dik Üçgenler,4,True
+Matematik,Eşlik ve Benzerlik,Benzerlik,4,True
+Matematik,Eşlik ve Benzerlik,Çokgenlerde Eşlik ve Benzerlik Oranı,4,True
+Matematik,Dönüşüm Geometrisi,Öteleme,3,True
+Matematik,Dönüşüm Geometrisi,Yansıma,3,True
+Matematik,Dönüşüm Geometrisi,Ardışık Öteleme ve Yansıma,3,True
+Matematik,Geometrik Cisimler,Dik Prizmaların Temel Elemanları ve Açınımı,4,True
+Matematik,Geometrik Cisimler,Dik Dairesel Silindir,4,True
+Matematik,Geometrik Cisimler,Dik Dairesel Silindirin Yüzey Alanı,4,True
+Matematik,Geometrik Cisimler,Dik Dairesel Silindirin Hacmi,4,True
+Matematik,Geometrik Cisimler,Dik Piramidin Temel Elemanları ve Açınımı,3,True
+Matematik,Geometrik Cisimler,Piramidin Yan Yüz Yüksekliği ile Yüksekliğini Hesaplama,3,True
+Matematik,Geometrik Cisimler,Dik Koninin Temel Elemanları ve Açınımı,3,True
+Matematik,Geometrik Cisimler,Konide Yükseklik Yarıçap ve Ana Doğru Arasındaki İlişki,4,True
 Fen Bilimleri,Mevsimler ve İklim,Mevsimlerin Oluşumu,5,True
 Fen Bilimleri,Mevsimler ve İklim,İklim ve Hava Hareketleri,4,True
 Fen Bilimleri,DNA ve Genetik Kod,DNA ve Genetik Kod,5,True

@@ -40,7 +40,7 @@ def show():
                 st.info("Programı değiştirmek için veli girişi gereklidir.")
                 pin = st.text_input("PIN Kodu", type="password", help="Varsayılan: 1234", key="sched_pin")
                 if st.button("Giriş Yap", key="btn_login_sched"):
-                    if pin == "1234":
+                    if pin == st.secrets.get("parent_pin", "1234"):
                         st.session_state["is_parent_logged_in"] = True
                         st.success("Giriş Başarılı!")
                         st.rerun()

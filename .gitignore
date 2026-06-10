@@ -22,12 +22,18 @@ wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+.pytest_cache/
 
-# Streamlit
+# Streamlit - all secrets files
 .streamlit/secrets.toml
+.streamlit/secrets_*.toml
+.streamlit/test_secrets.toml
 
 # User settings (contains API keys)
 config/user_settings.json
+
+# Google Service Account keys
+lgs-zeka-project-*.json
 
 # IDE
 .vscode/
@@ -55,3 +61,28 @@ Thumbs.db
 # Temporary files
 *.tmp
 temp/
+
+# Browser profile - contains PII and session data
+data/browser_profile/
+data/notebooklm_cookies.json
+data/notebooklm_imports/
+
+# Binary / media files
+*.mp4
+*.zip
+*.rar
+*.7z
+raw_videos/
+assets/processed/
+
+# Deployment scripts
+deploy_to_github.bat
+
+# Agent working files
+.agent/
+
+# Debug scripts
+debug_db.py
+download_video.ps1
+_secure_video_download.py
+_update_video.py

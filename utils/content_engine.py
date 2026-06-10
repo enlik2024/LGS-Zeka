@@ -49,14 +49,18 @@ class ContentEngine:
     def build_learning_packet(self, student_id: str, lesson: str, topic: str, subtopic: str) -> Dict[str, Any]:
         """
         Öğrenci için bir öğrenme paketi (fiche) hazırlar.
+        Önce eski content tablosuna, sonra yeni icerikler tablosuna bakar.
         """
         contents = self.get_recommended_content(lesson, topic, subtopic)
+        
+        # Eski content tablosunda bulunamadıysa yeni icerikler tablosuna bak
+        if not contents:
+            contents = self._get_icerikler_content(lesson, topic, subtopic)
         
         if not contents:
             return {}
             
         # Şimdilik ilk uygun içeriği dönüyoruz (MVP)
-        # İleride: Öğrencinin seviyesine göre seçim yapılabilir
         selected_content = contents[0]
         
         return {
@@ -68,6 +72,53 @@ class ContentEngine:
             "content": selected_content,
             "created_at": pd.Timestamp.now().isoformat()
         }
+    
+    def _get_icerikler_content(self, lesson: str, topic: str, subtopic: str) -> List[Dict[str, Any]]:
+        """
+        Yeni icerikler tablosundan NotebookLM içeriklerini getirir.
+        meb_kazanimlar tablosuyla join yaparak curriculum_map_subtopic eşleşmesi yapar.
+        """
+        try:
+            if self.db.db_type != "supabase" or not self.db._client:
+                return []
+            
+            # 1. Önce kazanım ID'sini bul (curriculum_map_subtopic = subtopic)
+            kazanim_result = self.db._client.table('meb_kazanimlar').select('kazanim_id').eq('ders', lesson).eq('curriculum_map_subtopic', subtopic).limit(1).execute()
+            
+            if not kazanim_result.data:
+                return []
+            
+            kazanim_id = kazanim_result.data[0]['kazanim_id']
+            
+            # 2. Bu kazanıma ait içerikleri getir
+            icerik_result = self.db._client.table('icerikler').select('*').eq('kazanim_id', kazanim_id).eq('status', 'approved').execute()
+            
+            if not icerik_result.data:
+                return []
+            
+            # 3. İçerikleri content formatına çevir
+            formatted_contents = []
+            for icerik in icerik_result.data:
+                formatted = {
+                    'content_id': icerik.get('icerik_id'),
+                    'lesson': lesson,
+                    'topic': topic,
+                    'subtopic': subtopic,
+                    'content_type': icerik.get('icerik_tipi'),
+                    'summary_bullets': f"📺 {icerik.get('baslik', 'İçerik')}\n\nBu konu için NotebookLM'den hazırlanmış {icerik.get('icerik_tipi', 'içerik')} bulunuyor.",
+                    'strategy_steps': f"1. Video/rehberi izle\n2. Flashcard'ları çalış\n3. Quiz ile test et",
+                    'common_mistakes': "NotebookLM içerikleri ile pekiştir.",
+                    'video_url': icerik.get('video_url'),
+                    'source': 'notebooklm',
+                    'active': True
+                }
+                formatted_contents.append(formatted)
+            
+            return formatted_contents
+            
+        except Exception as e:
+            print(f"Icerikler fetch error: {e}")
+            return []
 
     def suggest_content_for_wrong_question(self, question_id: str) -> Dict[str, Any]:
         """

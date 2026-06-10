@@ -496,12 +496,27 @@ class DatabaseManager:
         return False
 
     def load_flashcards_db(self, lesson: str, topic: str, subtopic: str) -> Optional[List[Dict]]:
-        """Flashcartları Supabase'den yükler."""
+        """Flashcartları Supabase'den yükler (flashcards_v2 tablosu)."""
         if self.db_type == "supabase" and self._client:
             try:
-                res = self._client.table("flashcards").select("cards_json").eq("lesson", lesson).eq("topic", topic).eq("subtopic", subtopic).order("created_at", desc=True).limit(1).execute()
+                # Önce yeni flashcards_v2 tablosuna bak
+                res = self._client.table("flashcards_v2").select("front, back, difficulty, hint").eq("lesson", lesson).eq("subtopic", subtopic).execute()
                 if res.data:
-                    return res.data[0]['cards_json']
+                    # front/back formatını question/answer formatına çevir
+                    cards = []
+                    for row in res.data:
+                        cards.append({
+                            "question": row.get("front", ""),
+                            "answer": row.get("back", ""),
+                            "difficulty": row.get("difficulty", "medium"),
+                            "hint": row.get("hint", "")
+                        })
+                    return cards
+                
+                # Eski flashcards tablosuna da bak (geriye uyumluluk)
+                res_old = self._client.table("flashcards").select("cards_json").eq("lesson", lesson).eq("topic", topic).eq("subtopic", subtopic).order("created_at", desc=True).limit(1).execute()
+                if res_old.data:
+                    return res_old.data[0]['cards_json']
             except Exception as e:
                 print(f"Supabase Flashcard Load Error: {e}")
         return None

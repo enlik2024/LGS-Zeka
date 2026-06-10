@@ -233,11 +233,16 @@ class UnifiedConfigManager:
         return models_config.get(model_type, "gemini-3-flash-preview")
     
     def get_model_cascade(self) -> List[str]:
-        """Model fallback sıralamasını döndür."""
+        """
+        Model fallback sıralamasını döndür.
+        
+        KULLANICI İSTEĞİ (2025-01): 
+        Fallback modelleri iptal edildi. Sadece 'primary' model kullanılır.
+        Kota dolarsa 'gemini_helper.py' içindeki döngü API Key'i değiştirir.
+        Böylece: Key 1 (Model A) -> Error -> Key 2 (Model A) ... şeklinde çalışır.
+        """
         return [
-            self.get_model("primary"),
-            self.get_model("fallback_1"),
-            self.get_model("fallback_2")
+            self.get_model("primary")
         ]
     
     def get_generation_config(self) -> Dict[str, Any]:

@@ -211,7 +211,7 @@ def render_parent_settings():
         # Basit bir PIN koruması simülasyonu
         pin = st.text_input("Veli PIN Kodu", type="password", help="Varsayılan: 1234")
         
-        if pin == "1234":
+        if pin == st.secrets.get("parent_pin", "1234"):
             st.session_state["is_parent_logged_in"] = True
             st.success("Giriş Başarılı")
             st.rerun()

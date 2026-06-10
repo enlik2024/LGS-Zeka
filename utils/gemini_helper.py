@@ -513,7 +513,10 @@ class GeminiHelper:
         Enterprise: JSON Mode ile garantili geçerli JSON çıktısı.
         """
         try:
-        image = self._prepare_image(image_input)
+            image = self._prepare_image(image_input)
+        except Exception as e:
+            st.error(f"Görsel hazırlama hatası: {e}")
+            return [{"error": str(e), "konu": "Görsel Hatası"}]
             
         max_key_retries = 3
         key_retry_count = 0

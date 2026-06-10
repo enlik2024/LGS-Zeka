@@ -337,3 +337,10 @@ evt_20260117231150888075,2026-01-17T23:11:50.888106,app_start,current_user,{},cu
 evt_20260117231158887593,2026-01-17T23:11:58.887625,app_start,current_user,{},current_session
 evt_20260117231322434414,2026-01-17T23:13:22.434463,app_start,current_user,{},current_session
 evt_20260117235048944486,2026-01-17T23:50:48.944504,app_start,current_user,{},current_session
+evt_20260120192615016689,2026-01-20T19:26:15.016713,app_start,current_user,{},current_session
+evt_20260120193156454808,2026-01-20T19:31:56.454836,app_start,current_user,{},current_session
+evt_20260120193607196880,2026-01-20T19:36:07.196902,app_start,current_user,{},current_session
+evt_20260120193838328205,2026-01-20T19:38:38.328224,app_start,current_user,{},current_session
+evt_20260120195907620962,2026-01-20T19:59:07.620985,app_start,current_user,{},current_session
+evt_20260120202012329187,2026-01-20T20:20:12.329211,app_start,current_user,{},current_session
+evt_20260120202804404992,2026-01-20T20:28:04.405012,app_start,current_user,{},current_session
