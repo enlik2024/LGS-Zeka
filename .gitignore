@@ -81,8 +81,45 @@ deploy_to_github.bat
 # Agent working files
 .agent/
 
-# Debug scripts
+# Planning / roadmap markdown files
+hazirlik-plan/
+md/
+
+# Archive / migration scripts
+archive/
+
+# One-off utility scripts
+create_seed_data.py
+load_kazanimlar.py
+save_extracted_content.py
+sync_curriculum_to_supabase.py
+update_youtube_url.py
+link_uslu_video.py
+find_uslu_ifadeler.py
+list_drive_files.py
+upload_to_drive.py
+test_supabase_insert.py
+create_logo.py
+process_videos.py
+run_processing_pipeline.py
+upload_server.py
+
+# Debug / test helper scripts
 debug_db.py
 download_video.ps1
 _secure_video_download.py
 _update_video.py
+test_complete.py
+test_features.py
+test_gemini.py
+test_new_features.py
+test_scoring.py
+test_sheets_connection.py
+test_with_sample_data.py
+setup_check.py
+
+# Batch files
+*.bat
+
+# Temp / misc
+questions_backup.csv
